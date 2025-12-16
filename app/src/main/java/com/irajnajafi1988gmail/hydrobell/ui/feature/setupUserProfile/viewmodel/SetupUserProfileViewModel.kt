@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 const val TAG = "SetupViewModel"
 @HiltViewModel
@@ -84,5 +85,14 @@ class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
 
         steps
     }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
+
+    fun saveGender(gender: Gender){
+        viewModelScope.launch {
+            _selectedGender.value = gender
+            Log.d(TAG, " تغییر جنسیت $gender")
+
+        }
+    }
 
 }

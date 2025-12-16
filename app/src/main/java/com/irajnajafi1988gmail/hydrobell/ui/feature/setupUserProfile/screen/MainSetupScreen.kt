@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.bottombar.CustomBottomBar
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.topBar.ItemPath
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.topBar.MainSetupPath
+import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Gender
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.viewmodel.SetupUserProfileViewModel
 
 @Composable
@@ -54,7 +55,14 @@ fun MainSetupScreen(
                 .padding(paddingValues)
         ){
             when(currentSetup){
-                0->{}
+                0->{GenderScreen(
+                    modifier = Modifier,
+                    selectedGender = userProfile.selectedGender.collectAsState().value,
+                    onSelect = {gender ->
+                        userProfile.saveGender(gender)
+
+                    }
+                )}
                 1->{}
                 2->{}
                 3->{}
