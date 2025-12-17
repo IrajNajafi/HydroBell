@@ -37,7 +37,7 @@ fun NextButton(
                 activeGradient
                 else
                     Brush.horizontalGradient(listOf(disabledColor, disabledColor))
-            )  .clickable(enabled = enabled) {onClickNext }
+            )  .clickable(enabled = enabled) {onClickNext ()}
             .padding(horizontal = 28.dp, vertical = 10.dp),
         contentAlignment = Alignment.Center
 

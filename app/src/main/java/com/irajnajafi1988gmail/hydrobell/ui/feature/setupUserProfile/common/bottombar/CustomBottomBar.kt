@@ -18,11 +18,11 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CustomBottomBar(
-    modifier: Modifier = Modifier,
     currentStep: Int,
     onClickBack: () -> Unit,
     onClickNext: () -> Unit,
     isNextEnabled: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     val gradient = Brush.horizontalGradient(
         listOf(

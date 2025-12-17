@@ -1,9 +1,9 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.viewmodel
 
 import android.util.Log
+import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.irajnajafi1988gmail.hydrobell.R
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.topBar.StepItem
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.ActivityLevel
@@ -16,12 +16,20 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 const val TAG = "SetupViewModel"
+
 @HiltViewModel
 class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
+    companion object {
+        const val LAST_FORM_STEP = 4
+        const val LOADING_STEP = 5
+    }
 
     private val _currentSetup = MutableStateFlow(0)
     val currentSetup: StateFlow<Int> = _currentSetup.asStateFlow()
@@ -41,13 +49,14 @@ class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
     private val _selectedEnvironment = MutableStateFlow(Environment.NONE)
     val selectedEnvironment: StateFlow<Environment> = _selectedEnvironment.asStateFlow()
 
+
     val stepFlow: StateFlow<List<StepItem>> = combine(
         selectedGender,
         selectedWeight,
         selectedAge,
         selectedActivity,
         selectedEnvironment
-    ){ gender, weight, age, activity, environment ->
+    ) { gender, weight, age, activity, environment ->
         val steps = listOf(
             StepItem(
                 icon = when (gender) {
@@ -87,12 +96,56 @@ class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
     }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
 
-    fun saveGender(gender: Gender){
+    fun nextStep() {
+        viewModelScope.launch {
+            when (_currentSetup.value) {
+                in 0 until LAST_FORM_STEP -> {
+                    _currentSetup.value++
+                }
+
+                LAST_FORM_STEP -> {
+                    // Finish زده شده
+                    _currentSetup.value = LOADING_STEP
+                    Log.d(TAG, "Go to loading step")
+                    // اینجا می‌تونی save + calculation رو شروع کنی
+                }
+            }
+        }
+    }
+
+
+    fun backStep() {
+        viewModelScope.launch {
+            if (_currentSetup.value in 1..LAST_FORM_STEP) {
+                _currentSetup.value--
+            }
+        }
+    }
+
+    fun setGender(gender: Gender) {
         viewModelScope.launch {
             _selectedGender.value = gender
-            Log.d(TAG, " تغییر جنسیت $gender")
+            Log.d(TAG, " SelectGender $gender")
 
         }
     }
+
+    fun setWeight(weight:Int){
+        viewModelScope.launch {
+            _selectedWeight.value = weight
+            Log.d(TAG, " SelectWeight $weight")
+
+        }
+    }
+    fun setAge(age:Int){
+        viewModelScope.launch {
+            _selectedAge.value = age
+            Log.d(TAG, " SelectAge $age")
+
+        }
+
+    }
+
+
 
 }
