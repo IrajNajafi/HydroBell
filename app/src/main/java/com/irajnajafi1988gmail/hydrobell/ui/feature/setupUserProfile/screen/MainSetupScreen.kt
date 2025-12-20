@@ -15,7 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.bottombar.CustomBottomBar
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.topBar.MainSetupPath
@@ -35,6 +34,7 @@ fun MainSetupScreen(
     val steps by userProfile.stepFlow.collectAsState()
     val selectedWeight by userProfile.selectedWeight.collectAsState()
     val selectedAge by userProfile.selectedAge.collectAsState()
+    val selectedActivityLevel by userProfile.selectedActivity.collectAsState()
 
     Scaffold(
         contentWindowInsets = WindowInsets.systemBars,
@@ -49,6 +49,7 @@ fun MainSetupScreen(
 
         },
         bottomBar = {
+
             if (currentSetup <= SetupUserProfileViewModel.LAST_FORM_STEP) {
                 CustomBottomBar(
                     modifier = Modifier.navigationBarsPadding(),
@@ -106,7 +107,18 @@ fun MainSetupScreen(
                     )
                 }
 
-                3 -> {}
+                3 -> {
+                    ActivityLavalScreen(
+                        modifier = Modifier,
+                        gender = setGender,
+                        selectedActivityLevel = selectedActivityLevel,
+                        onSelectedChange = { level ->
+                            userProfile.setActivityLevel(level)
+                        }
+
+                    )
+                }
+
                 4 -> {}
                 5 -> {}
             }

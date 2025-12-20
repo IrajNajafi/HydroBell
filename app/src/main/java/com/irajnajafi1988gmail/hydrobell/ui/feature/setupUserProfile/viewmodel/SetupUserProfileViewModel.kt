@@ -144,8 +144,15 @@ class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
 
         }
 
+
     }
 
+    fun setActivityLevel(level: ActivityLevel){
+        viewModelScope.launch {
+            _selectedActivity.value = level
+            Log.d(TAG, " SelectActivityLevel $level")
 
+        }
+    }
 
 }
