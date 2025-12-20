@@ -155,4 +155,12 @@ class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun setEnvironment(environment: Environment){
+        viewModelScope.launch {
+            _selectedEnvironment.value = environment
+            Log.d(TAG, " SelectEnvironment $environment")
+
+        }
+    }
+
 }

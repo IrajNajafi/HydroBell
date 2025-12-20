@@ -35,6 +35,7 @@ fun MainSetupScreen(
     val selectedWeight by userProfile.selectedWeight.collectAsState()
     val selectedAge by userProfile.selectedAge.collectAsState()
     val selectedActivityLevel by userProfile.selectedActivity.collectAsState()
+    val selectedOption by userProfile.selectedEnvironment.collectAsState()
 
     Scaffold(
         contentWindowInsets = WindowInsets.systemBars,
@@ -119,7 +120,15 @@ fun MainSetupScreen(
                     )
                 }
 
-                4 -> {}
+                4 -> {
+                    EnvironmentScreen(
+                        modifier = Modifier,
+                        selectedOption = selectedOption,
+                        onSelectedChange = {environment ->
+                            userProfile.setEnvironment(environment)
+                        }
+                    )
+                }
                 5 -> {}
             }
         }
