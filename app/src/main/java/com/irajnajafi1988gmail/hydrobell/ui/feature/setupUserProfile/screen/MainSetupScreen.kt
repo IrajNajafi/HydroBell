@@ -10,23 +10,30 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.bottombar.CustomBottomBar
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.topBar.MainSetupPath
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Gender
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.viewmodel.SetupUserProfileViewModel
 import com.irajnajafi1988gmail.hydrobell.R
+import com.irajnajafi1988gmail.hydrobell.navigition.NaveScreen
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.loadingscreen.LoadingScreenWithWave
+import com.irajnajafi1988gmail.hydrobell.ui.feature.splash.viewmodel.SplashScreenContentViewModel
+import kotlinx.coroutines.delay
 
 
 @Composable
 fun MainSetupScreen(
-    userProfile: SetupUserProfileViewModel = hiltViewModel()
+    userProfile: SetupUserProfileViewModel = hiltViewModel(),
+    icComplete: SplashScreenContentViewModel = hiltViewModel(),
+    navController: NavController
 ) {
 
 
@@ -126,13 +133,22 @@ fun MainSetupScreen(
                     EnvironmentScreen(
                         modifier = Modifier,
                         selectedOption = selectedOption,
-                        onSelectedChange = {environment ->
+                        onSelectedChange = { environment ->
                             userProfile.setEnvironment(environment)
                         }
                     )
                 }
+
                 5 -> {
                     LoadingScreenWithWave()
+                    LaunchedEffect(Unit) {
+
+                        icComplete.setProfileComplete(true)
+                        delay(1000)
+                        navController.navigate(NaveScreen.MainSetupScreen.route) {
+                            popUpTo(NaveScreen.MainSetupScreen.route) { inclusive = true }
+                        }
+                    }
                 }
             }
         }

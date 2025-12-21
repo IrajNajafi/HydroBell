@@ -25,7 +25,9 @@ import javax.inject.Inject
 const val TAG = "SetupViewModel"
 
 @HiltViewModel
-class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
+class SetupUserProfileViewModel @Inject constructor(
+
+) : ViewModel() {
     companion object {
         const val LAST_FORM_STEP = 4
         const val LOADING_STEP = 5
