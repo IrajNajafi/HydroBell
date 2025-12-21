@@ -21,6 +21,7 @@ import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.topB
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Gender
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.viewmodel.SetupUserProfileViewModel
 import com.irajnajafi1988gmail.hydrobell.R
+import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.loadingscreen.LoadingScreenWithWave
 
 
 @Composable
@@ -30,6 +31,7 @@ fun MainSetupScreen(
 
 
     val currentSetup by userProfile.currentSetup.collectAsState()
+    val isNextEnabled by userProfile.isNextEnabled.collectAsState()
     val setGender by userProfile.selectedGender.collectAsState()
     val steps by userProfile.stepFlow.collectAsState()
     val selectedWeight by userProfile.selectedWeight.collectAsState()
@@ -60,7 +62,7 @@ fun MainSetupScreen(
                     onClickBack = {
                         userProfile.backStep()
                     },
-                    isNextEnabled = true,
+                    isNextEnabled = isNextEnabled,
                     currentStep = currentSetup
                 )
             }
@@ -129,7 +131,9 @@ fun MainSetupScreen(
                         }
                     )
                 }
-                5 -> {}
+                5 -> {
+                    LoadingScreenWithWave()
+                }
             }
         }
     }

@@ -49,6 +49,37 @@ class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
     private val _selectedEnvironment = MutableStateFlow(Environment.NONE)
     val selectedEnvironment: StateFlow<Environment> = _selectedEnvironment.asStateFlow()
 
+    private val stepValidation: List<StateFlow<Boolean>> = listOf(
+        selectedGender.map {
+            it != Gender.NONE
+        }.stateIn(viewModelScope, SharingStarted.Lazily, false),
+        selectedWeight.map { it > 0 }.stateIn(viewModelScope, SharingStarted.Lazily, false),
+        selectedAge.map { it > 0 }.stateIn(viewModelScope, SharingStarted.Lazily, false),
+        selectedActivity.map { it != ActivityLevel.NONE }
+            .stateIn(viewModelScope, SharingStarted.Lazily, false),
+        selectedEnvironment.map { it != Environment.NONE }
+            .stateIn(viewModelScope, SharingStarted.Lazily, false)
+    )
+
+    val isNextEnabled: StateFlow<Boolean> = currentSetup
+        .flatMapLatest { step ->
+            // Stepهای قبلی + Step فعلی
+            val relevantValidations = stepValidation.take(step + 1)
+            combine(relevantValidations) { results -> results.all { it } }
+        }
+        .stateIn(viewModelScope, SharingStarted.Lazily, false)
+        .also { flow ->
+            viewModelScope.launch {
+                flow.collect { value ->
+                    Log.d(
+                        TAG,
+                        " مرحله:${currentSetup.value} | وضعیت Step ها: ${
+                            stepValidation.mapIndexed { i, v -> " مرحله $i=${v.value}" }
+                        } | Next فعال است؟ $value"
+                    )
+                }
+            }
+        }
 
     val stepFlow: StateFlow<List<StepItem>> = combine(
         selectedGender,
@@ -104,10 +135,9 @@ class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
                 }
 
                 LAST_FORM_STEP -> {
-                    // Finish زده شده
+
                     _currentSetup.value = LOADING_STEP
                     Log.d(TAG, "Go to loading step")
-                    // اینجا می‌تونی save + calculation رو شروع کنی
                 }
             }
         }
@@ -130,14 +160,15 @@ class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun setWeight(weight:Int){
+    fun setWeight(weight: Int) {
         viewModelScope.launch {
             _selectedWeight.value = weight
             Log.d(TAG, " SelectWeight $weight")
 
         }
     }
-    fun setAge(age:Int){
+
+    fun setAge(age: Int) {
         viewModelScope.launch {
             _selectedAge.value = age
             Log.d(TAG, " SelectAge $age")
@@ -147,7 +178,7 @@ class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
 
     }
 
-    fun setActivityLevel(level: ActivityLevel){
+    fun setActivityLevel(level: ActivityLevel) {
         viewModelScope.launch {
             _selectedActivity.value = level
             Log.d(TAG, " SelectActivityLevel $level")
@@ -155,12 +186,13 @@ class SetupUserProfileViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun setEnvironment(environment: Environment){
+    fun setEnvironment(environment: Environment) {
         viewModelScope.launch {
             _selectedEnvironment.value = environment
             Log.d(TAG, " SelectEnvironment $environment")
 
         }
     }
+
 
 }
