@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.irajnajafi1988gmail.hydrobell.navigition.AppNavigation
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.screen.SettingScreen
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.screen.MainSetupScreen
 import com.irajnajafi1988gmail.hydrobell.ui.theme.HydroBellTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +17,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             HydroBellTheme {
-                AppNavigation()
+               AppNavigation()
+
 
             }
         }

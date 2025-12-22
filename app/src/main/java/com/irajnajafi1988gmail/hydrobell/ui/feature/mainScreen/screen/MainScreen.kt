@@ -87,7 +87,7 @@ fun MainScreen(
         when (selectedTab) {
             0 -> HomeScreen(navController = navController)
             1 -> HistoryScreen()
-            2 -> SettingScreen()
+            2 -> SettingScreen(navController = navController)
         }
     }
 }

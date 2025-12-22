@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.domain.datastore.model
+package com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model
 
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.ActivityLevel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Environment

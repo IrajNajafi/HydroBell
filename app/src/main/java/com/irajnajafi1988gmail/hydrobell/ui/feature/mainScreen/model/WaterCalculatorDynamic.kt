@@ -1,6 +1,6 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model
 
-import com.irajnajafi1988gmail.hydrobell.domain.datastore.model.UserProfile
+import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.UserProfile
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.ActivityLevel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Environment
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Gender

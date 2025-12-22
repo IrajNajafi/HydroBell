@@ -5,12 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.irajnajafi1988gmail.hydrobell.R
 import com.irajnajafi1988gmail.hydrobell.domain.datastore.model.IsCompleteUseCase
+import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.UserProfile
+import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.repository.UserProfileRepository
+import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.InsertUserProfileUseCase
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.topBar.StepItem
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.ActivityLevel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Environment
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Gender
 import com.irajnajafi1988gmail.hydrobell.ui.theme.turquoise
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,8 +31,10 @@ const val TAG = "SetupViewModel"
 
 @HiltViewModel
 class SetupUserProfileViewModel @Inject constructor(
-    val isCompleteUseCase: IsCompleteUseCase
+    val isCompleteUseCase: IsCompleteUseCase,
+    private val insertUserProfileUseCase: InsertUserProfileUseCase
 ) : ViewModel() {
+
     companion object {
         const val LAST_FORM_STEP = 4
         const val LOADING_STEP = 5
@@ -56,33 +62,29 @@ class SetupUserProfileViewModel @Inject constructor(
     val setupCompleted: StateFlow<Boolean> = _setupCompleted.asStateFlow()
 
     private val stepValidation: List<StateFlow<Boolean>> = listOf(
-        selectedGender.map {
-            it != Gender.NONE
-        }.stateIn(viewModelScope, SharingStarted.Lazily, false),
+        selectedGender.map { it != Gender.NONE }.stateIn(viewModelScope, SharingStarted.Lazily, false),
         selectedWeight.map { it > 0 }.stateIn(viewModelScope, SharingStarted.Lazily, false),
         selectedAge.map { it > 0 }.stateIn(viewModelScope, SharingStarted.Lazily, false),
-        selectedActivity.map { it != ActivityLevel.NONE }
-            .stateIn(viewModelScope, SharingStarted.Lazily, false),
-        selectedEnvironment.map { it != Environment.NONE }
-            .stateIn(viewModelScope, SharingStarted.Lazily, false)
+        selectedActivity.map { it != ActivityLevel.NONE }.stateIn(viewModelScope, SharingStarted.Lazily, false),
+        selectedEnvironment.map { it != Environment.NONE }.stateIn(viewModelScope, SharingStarted.Lazily, false)
     )
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val isNextEnabled: StateFlow<Boolean> = currentSetup
         .flatMapLatest { step ->
-            // Stepهای قبلی + Step فعلی
             val relevantValidations = stepValidation.take(step + 1)
             combine(relevantValidations) { results -> results.all { it } }
         }
         .stateIn(viewModelScope, SharingStarted.Lazily, false)
         .also { flow ->
             viewModelScope.launch {
-                flow.collect { value ->
-                    Log.d(
-                        TAG,
-                        " مرحله:${currentSetup.value} | وضعیت Step ها: ${
-                            stepValidation.mapIndexed { i, v -> " مرحله $i=${v.value}" }
-                        } | Next فعال است؟ $value"
-                    )
+                flow.collect { enabled ->
+                    Log.d(TAG, "📌 مرحله فعلی: ${_currentSetup.value}")
+                    stepValidation.forEachIndexed { i, step ->
+                        Log.d(TAG, "   مرحله $i فعال است؟ ${if (step.value) "✅ بله" else "❌ خیر"}")
+                    }
+                    Log.d(TAG, "➡️ دکمه بعدی فعال است؟ ${if (enabled) "✅ بله" else "❌ خیر"}")
+                    Log.d(TAG, "-----------------------------------------")
                 }
             }
         }
@@ -94,6 +96,7 @@ class SetupUserProfileViewModel @Inject constructor(
         selectedActivity,
         selectedEnvironment
     ) { gender, weight, age, activity, environment ->
+
         val steps = listOf(
             StepItem(
                 icon = when (gender) {
@@ -111,7 +114,7 @@ class SetupUserProfileViewModel @Inject constructor(
             ),
             StepItem(
                 icon = R.drawable.age,
-                label = "$age Yr",
+                label = "$age years old",
                 color = turquoise
             ),
             StepItem(
@@ -126,9 +129,7 @@ class SetupUserProfileViewModel @Inject constructor(
             )
         )
 
-        // لاگ مقدار جدید
-        Log.d(TAG, "مرحله به روز شد: ${steps.map { it.label }}")
-
+        Log.d(TAG, "📝 مراحل به‌روزرسانی شدند: ${steps.map { it.label }}")
         steps
     }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
@@ -138,26 +139,26 @@ class SetupUserProfileViewModel @Inject constructor(
             when (_currentSetup.value) {
                 in 0 until LAST_FORM_STEP -> {
                     _currentSetup.value++
+                    Log.d(TAG, "➡️ رفتن به مرحله بعد: ${_currentSetup.value}")
                 }
-
                 LAST_FORM_STEP -> {
                     _currentSetup.value = LOADING_STEP
-
+                    Log.d(TAG, "⏳ شروع ذخیره‌سازی و تکمیل پروفایل...")
                     delay(1500)
-
-                    completeProfile()        // 👈 اینجا
+                    completeProfile() // حالا suspend هست
                     _setupCompleted.value = true
+                    Log.d(TAG, "🎉 مراحل تکمیل شد!")
                 }
 
             }
         }
     }
 
-
     fun backStep() {
         viewModelScope.launch {
             if (_currentSetup.value in 1..LAST_FORM_STEP) {
                 _currentSetup.value--
+                Log.d(TAG, "⬅️ برگشت به مرحله قبلی: ${_currentSetup.value}")
             }
         }
     }
@@ -165,48 +166,62 @@ class SetupUserProfileViewModel @Inject constructor(
     fun setGender(gender: Gender) {
         viewModelScope.launch {
             _selectedGender.value = gender
-            Log.d(TAG, " SelectGender $gender")
-
+            Log.d(TAG, "👤 جنسیت انتخاب شد: $gender")
         }
     }
 
     fun setWeight(weight: Int) {
         viewModelScope.launch {
             _selectedWeight.value = weight
-            Log.d(TAG, " SelectWeight $weight")
-
+            Log.d(TAG, "⚖️ وزن انتخاب شد: $weight کیلوگرم")
         }
     }
 
     fun setAge(age: Int) {
         viewModelScope.launch {
             _selectedAge.value = age
-            Log.d(TAG, " SelectAge $age")
-
+            Log.d(TAG, "🎂 سن انتخاب شد: $age سال")
         }
-
-
     }
 
     fun setActivityLevel(level: ActivityLevel) {
         viewModelScope.launch {
             _selectedActivity.value = level
-            Log.d(TAG, " SelectActivityLevel $level")
-
+            Log.d(TAG, "🏃‍♂️ سطح فعالیت انتخاب شد: $level")
         }
     }
 
     fun setEnvironment(environment: Environment) {
         viewModelScope.launch {
             _selectedEnvironment.value = environment
-            Log.d(TAG, " SelectEnvironment $environment")
-
+            Log.d(TAG, "🌎 محیط انتخاب شد: $environment")
         }
     }
 
-    private fun completeProfile() {
-        viewModelScope.launch {
-            isCompleteUseCase.setProfileCompleteUseCase(true)
+    private  suspend fun completeProfile() {
+
+            try {
+                // 1️⃣ ست کردن Complete
+                isCompleteUseCase.setProfileCompleteUseCase(true)
+                Log.d(TAG, "✅ پروفایل در DataStore تکمیل شد")
+
+                // 2️⃣ ساخت UserProfile
+                val profile = UserProfile(
+                    gender = _selectedGender.value,
+                    weight = _selectedWeight.value,
+                    age = _selectedAge.value,
+                    activityLaval = _selectedActivity.value,
+                    environment = _selectedEnvironment.value
+                )
+                Log.d(TAG, "📦 پروفایل ساخته شد: جنسیت=${profile.gender}, وزن=${profile.weight}, سن=${profile.age}, فعالیت=${profile.activityLaval}, محیط=${profile.environment}")
+
+                // 3️⃣ ذخیره در Room
+                insertUserProfileUseCase(profile)
+                Log.d(TAG, "💾 پروفایل با موفقیت در Room ذخیره شد")
+
+            } catch (e: Exception) {
+                Log.e(TAG, "❌ خطا در completeProfile → ${e.localizedMessage}", e)
+            }
         }
-    }
+
 }

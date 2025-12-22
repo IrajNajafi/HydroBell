@@ -14,3 +14,12 @@ class GetIsProfileCompleteUseCase @Inject constructor(
 class SetProfileCompleteUseCase @Inject constructor(
     private val repository: IsCompleteRepository
 ) { suspend operator fun invoke(isComplete: Boolean) = repository.setProfileComplete(isComplete) }
+
+
+class ResetProfileCompleteUseCase @Inject constructor(
+    private val repository: IsCompleteRepository
+) {
+    suspend operator fun invoke() {
+        repository.setProfileComplete(false)
+    }
+}

@@ -23,8 +23,9 @@ import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.topB
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Gender
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.viewmodel.SetupUserProfileViewModel
 import com.irajnajafi1988gmail.hydrobell.R
-import com.irajnajafi1988gmail.hydrobell.domain.datastore.model.UserProfile
+import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.UserProfile
 import com.irajnajafi1988gmail.hydrobell.navigition.NaveScreen
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.MainScreenViewModel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.loadingscreen.LoadingScreenWithWave
 import com.irajnajafi1988gmail.hydrobell.ui.feature.splash.viewmodel.SplashScreenContentViewModel
 import kotlinx.coroutines.delay
@@ -33,6 +34,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun MainSetupScreen(
     userProfile: SetupUserProfileViewModel = hiltViewModel(),
+    mainScreenViewModel: MainScreenViewModel = hiltViewModel(),
     navController: NavController
 ) {
 
@@ -45,6 +47,7 @@ fun MainSetupScreen(
     val selectedAge by userProfile.selectedAge.collectAsState()
     val selectedActivityLevel by userProfile.selectedActivity.collectAsState()
     val selectedOption by userProfile.selectedEnvironment.collectAsState()
+
 
     Scaffold(
         contentWindowInsets = WindowInsets.systemBars,
@@ -153,6 +156,7 @@ fun MainSetupScreen(
                     }
                 }
             }
+
 
         }
     }
