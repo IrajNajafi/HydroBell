@@ -21,16 +21,9 @@ import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.load
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreenContent(navController: NavController) {
+fun SplashScreenContent() {
 
-    LaunchedEffect(Unit) {
-        delay(2000)
-        navController.navigate(NaveScreen.MainSetupScreen.route) {
-            popUpTo(NaveScreen.SplashScreenContent.route) {
-                inclusive = true
-            }
-        }
-    }
+
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.splash_loading)
     )

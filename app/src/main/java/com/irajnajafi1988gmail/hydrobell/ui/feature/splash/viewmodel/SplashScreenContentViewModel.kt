@@ -12,8 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashScreenContentViewModel @Inject constructor(
     private val useCase: IsCompleteUseCase
-): ViewModel(){
-
+) : ViewModel() {
 
     val isProfileComplete = useCase.getIsProfileCompleteUseCase()
         .stateIn(
@@ -21,11 +20,4 @@ class SplashScreenContentViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = null
         )
-
-
-    fun setProfileComplete(isComplete: Boolean) {
-        viewModelScope.launch {
-            useCase.setProfileCompleteUseCase(isComplete)
-        }
-    }
 }

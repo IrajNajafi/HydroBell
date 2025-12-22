@@ -23,6 +23,7 @@ import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.topB
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Gender
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.viewmodel.SetupUserProfileViewModel
 import com.irajnajafi1988gmail.hydrobell.R
+import com.irajnajafi1988gmail.hydrobell.domain.datastore.model.UserProfile
 import com.irajnajafi1988gmail.hydrobell.navigition.NaveScreen
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.loadingscreen.LoadingScreenWithWave
 import com.irajnajafi1988gmail.hydrobell.ui.feature.splash.viewmodel.SplashScreenContentViewModel
@@ -32,11 +33,10 @@ import kotlinx.coroutines.delay
 @Composable
 fun MainSetupScreen(
     userProfile: SetupUserProfileViewModel = hiltViewModel(),
-    icComplete: SplashScreenContentViewModel = hiltViewModel(),
     navController: NavController
 ) {
 
-
+    val setupCompleted by userProfile.setupCompleted.collectAsState()
     val currentSetup by userProfile.currentSetup.collectAsState()
     val isNextEnabled by userProfile.isNextEnabled.collectAsState()
     val setGender by userProfile.selectedGender.collectAsState()
@@ -141,16 +141,19 @@ fun MainSetupScreen(
 
                 5 -> {
                     LoadingScreenWithWave()
-                    LaunchedEffect(Unit) {
 
-                        icComplete.setProfileComplete(true)
-                        delay(1000)
-                        navController.navigate(NaveScreen.MainSetupScreen.route) {
-                            popUpTo(NaveScreen.MainSetupScreen.route) { inclusive = true }
+                }
+            }
+            LaunchedEffect(setupCompleted) {
+                if (setupCompleted) {
+                    navController.navigate(NaveScreen.MainScreen.route) {
+                        popUpTo(NaveScreen.MainSetupScreen.route) {
+                            inclusive = true
                         }
                     }
                 }
             }
+
         }
     }
 }

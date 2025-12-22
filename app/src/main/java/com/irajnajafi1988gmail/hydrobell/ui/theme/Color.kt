@@ -24,5 +24,8 @@ val LevelMediumBorder = Color(0xFF4CAF50)  // سبز پررنگ‌تر
 val LevelHighBg = Color(0xFFFFF9C4)        // زرد کرمی
 val LevelHighBorder = Color(0xFFFBC02D)
 val carbonBlue = Color(0xFF1E88E5)
+val SkyBlue = Color(0xFF87CEEB)
+val DeepSkyBlue = Color(0xD31EA1FD)
+
 
 

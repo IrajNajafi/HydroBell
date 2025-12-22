@@ -1,16 +1,17 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.viewmodel
 
 import android.util.Log
-import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.irajnajafi1988gmail.hydrobell.R
+import com.irajnajafi1988gmail.hydrobell.domain.datastore.model.IsCompleteUseCase
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.topBar.StepItem
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.ActivityLevel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Environment
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Gender
 import com.irajnajafi1988gmail.hydrobell.ui.theme.turquoise
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -26,7 +27,7 @@ const val TAG = "SetupViewModel"
 
 @HiltViewModel
 class SetupUserProfileViewModel @Inject constructor(
-
+    val isCompleteUseCase: IsCompleteUseCase
 ) : ViewModel() {
     companion object {
         const val LAST_FORM_STEP = 4
@@ -50,6 +51,9 @@ class SetupUserProfileViewModel @Inject constructor(
 
     private val _selectedEnvironment = MutableStateFlow(Environment.NONE)
     val selectedEnvironment: StateFlow<Environment> = _selectedEnvironment.asStateFlow()
+
+    private val _setupCompleted = MutableStateFlow(false)
+    val setupCompleted: StateFlow<Boolean> = _setupCompleted.asStateFlow()
 
     private val stepValidation: List<StateFlow<Boolean>> = listOf(
         selectedGender.map {
@@ -137,10 +141,14 @@ class SetupUserProfileViewModel @Inject constructor(
                 }
 
                 LAST_FORM_STEP -> {
-
                     _currentSetup.value = LOADING_STEP
-                    Log.d(TAG, "Go to loading step")
+
+                    delay(1500)
+
+                    completeProfile()        // 👈 اینجا
+                    _setupCompleted.value = true
                 }
+
             }
         }
     }
@@ -196,5 +204,9 @@ class SetupUserProfileViewModel @Inject constructor(
         }
     }
 
-
+    private fun completeProfile() {
+        viewModelScope.launch {
+            isCompleteUseCase.setProfileCompleteUseCase(true)
+        }
+    }
 }
