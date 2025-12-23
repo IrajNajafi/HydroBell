@@ -2,6 +2,7 @@ package com.irajnajafi1988gmail.hydrobell.di.roomDatabase
 
 import android.content.Context
 import androidx.room.Room
+import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.dao.DailyDrinkDao
 import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.dao.UserProfileDao
 import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.db.AppDatabase
 import dagger.Module
@@ -32,4 +33,7 @@ object DatabaseModule {
 
     @Provides
     fun providerUserProfileDao(db: AppDatabase): UserProfileDao = db.userProfileDao()
+
+    @Provides
+    fun providerDailyDrinkDao(db: AppDatabase): DailyDrinkDao =db.dailyDrinkDao()
 }

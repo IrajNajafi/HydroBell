@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.data.roomDatabase
+package com.irajnajafi1988gmail.hydrobell.data.roomDatabase.repository
 
 import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.dao.UserProfileDao
 import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.mapper.toDomain

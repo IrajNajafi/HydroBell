@@ -1,6 +1,6 @@
 package com.irajnajafi1988gmail.hydrobell.di.roomDatabase
 
-import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.UserProfileRepositoryImpl
+import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.repository.UserProfileRepositoryImpl
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.repository.UserProfileRepository
 import dagger.Binds
 import dagger.Module
