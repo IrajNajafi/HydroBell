@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -117,5 +118,15 @@ class DailyDrinkViewModel @Inject constructor(
             }
         }
     }
+    fun resetToday() {
+        viewModelScope.launch {
+            val today = LocalDate.now().toString()
+            val resetDrink = dailyDrinkUseCase.resetTodayDrinkUseCase(today)
+
+            _todayDrink.value = resetDrink
+
+        }
+    }
+
 
 }

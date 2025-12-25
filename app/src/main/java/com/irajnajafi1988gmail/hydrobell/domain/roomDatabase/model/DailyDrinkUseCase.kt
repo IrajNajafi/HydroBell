@@ -5,6 +5,7 @@ import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.ClearAllUse
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.GetAllUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.GetByDateUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.GetLatestUseCase
+import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.ResetTodayDrinkUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.UpsertUseCase
 
 data class DailyDrinkUseCase(
@@ -13,5 +14,6 @@ data class DailyDrinkUseCase(
     val getAll: GetAllUseCase,
     val getLatest: GetLatestUseCase,
     val clearAll: ClearAllUseCase,
-   val addAmountToDailyDrinkUseCase: AddAmountToDailyDrinkUseCase
+    val addAmountToDailyDrinkUseCase: AddAmountToDailyDrinkUseCase,
+    val resetTodayDrinkUseCase: ResetTodayDrinkUseCase
 )

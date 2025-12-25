@@ -18,9 +18,12 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.irajnajafi1988gmail.hydrobell.R
+import com.irajnajafi1988gmail.hydrobell.ui.theme.Pink80
+import com.irajnajafi1988gmail.hydrobell.ui.theme.buttonContainerColor
+import com.irajnajafi1988gmail.hydrobell.ui.theme.buttonDisabledContainerColor
 
 @Composable
-fun ToolTip(
+fun TItemMessage(
     modifier: Modifier = Modifier,
     text: String,
     color: Color = Color.White,
@@ -38,8 +41,8 @@ fun ToolTip(
                 .size(50.dp)
         )
         Surface(
-            color = Color.Black,
-            shape = tooltipShape(arrowSize = 30f, cornerRadius = 30f, arrowOffsetY = 40f),
+            color = buttonDisabledContainerColor,
+            shape = messageShape(arrowSize = 30f, cornerRadius = 30f, arrowOffsetY = 40f),
             modifier = modifier.padding(start = 10.dp)
 
         ) {

@@ -65,4 +65,17 @@ class AddAmountToDailyDrinkUseCase @Inject constructor(
         }
     }
 }
+class ResetTodayDrinkUseCase @Inject constructor(
+    private val repository: DailyDrinkRepository
+) {
+    suspend operator fun invoke(date: String): DailyDrink {
+        val current = repository.getByDate(date).first()
+
+        val resetDrink = (current ?: DailyDrink(date = date, totalDrink = 0))
+            .copy(totalDrink = 0)
+
+        repository.upsert(resetDrink)
+        return resetDrink
+    }
+}
 

@@ -41,7 +41,7 @@ fun SplashScreenContent() {
             composition = composition,
             progress = { progress },
             modifier = Modifier
-                .size(200.dp)
+                .size(100.dp)
                 .align(Alignment.BottomCenter)
         )
     }

@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import com.google.gson.annotations.Until
 import com.irajnajafi1988gmail.hydrobell.navigition.NaveScreen
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.DailyDrinkViewModel
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.DishesViewModel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.MainScreenViewModel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.SettingViewModel
 import kotlinx.coroutines.delay
@@ -31,7 +32,8 @@ import kotlinx.coroutines.delay
 fun SettingScreen(
     navController: NavController,
     settingViewModel: SettingViewModel = hiltViewModel(),
-    dailyDrink: DailyDrinkViewModel = hiltViewModel()
+    dailyDrink: DailyDrinkViewModel = hiltViewModel(),
+    dishesViewModel: DishesViewModel = hiltViewModel()
 ) {
     val state by settingViewModel.uiState.collectAsState()
 
@@ -50,6 +52,7 @@ fun SettingScreen(
                     Log.d("RESET_UI", "👆 دکمه ریست توسط کاربر زده شد")
                     settingViewModel.restartUserProfile()
                     dailyDrink.clearAll()
+                    dishesViewModel.resetDishes()
                 }
         )
 
