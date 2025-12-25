@@ -34,7 +34,6 @@ import kotlinx.coroutines.delay
 @Composable
 fun MainSetupScreen(
     userProfile: SetupUserProfileViewModel = hiltViewModel(),
-    mainScreenViewModel: MainScreenViewModel = hiltViewModel(),
     navController: NavController
 ) {
 

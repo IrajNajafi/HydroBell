@@ -15,6 +15,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -22,15 +25,28 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.irajnajafi1988gmail.hydrobell.R
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.RefreshIcon
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.ToolTip
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.WaterActionRow
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.WaterProgressCard
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.WaterCalculatorDynamic
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.DailyDrinkViewModel
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.MainScreenViewModel
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(
+    navController: NavController,
+    dailyDrink: DailyDrinkViewModel = hiltViewModel(),
+
+) {
+    val todayDrink by dailyDrink.todayDrink.collectAsState()
+    val dailyNeed by dailyDrink.dailyNeed.collectAsState()
+    val drunkWater = todayDrink?.totalDrink ?: 0
+
+
 
     Scaffold(
 floatingActionButton = {
@@ -60,13 +76,13 @@ floatingActionButton = {
             )
             Spacer(Modifier.height(20.dp))
             WaterProgressCard(
-                drunkWater = 0,
-                dailyWaterMl = 0,
-                number = "0",
+                drunkWater =drunkWater,
+                dailyWaterMl =dailyNeed,
+                number = "$drunkWater/ $dailyNeed Ml",
                 text = "Test",
                 numberMl = "0 Ml",
                 selectedIcon = R.drawable.drop,
-                onClick = {},
+                onClick = {dailyDrink.addAmount(170)},
                 modifier = Modifier
             )
             WaterActionRow()

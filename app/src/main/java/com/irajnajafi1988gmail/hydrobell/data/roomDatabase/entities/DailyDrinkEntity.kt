@@ -9,5 +9,4 @@ data class DailyDrinkEntity(
     @PrimaryKey
     val date: String,      // yyyy-MM-dd
     val totalDrink: Int,   // مقدار مصرف‌شده امروز
-    val goalDrink: Int     // هدف امروز
-)
+    )

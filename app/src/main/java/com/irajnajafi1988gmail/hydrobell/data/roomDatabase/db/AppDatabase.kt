@@ -8,11 +8,13 @@ import androidx.room.TypeConverters
 import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.converters.UserProfileConverters
 import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.dao.DailyDrinkDao
 import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.dao.UserProfileDao
+import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.entities.DailyDrinkEntity
 import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.entities.UserProfileEntity
 
 @Database(
     entities = [
-        UserProfileEntity::class
+        UserProfileEntity::class,
+        DailyDrinkEntity::class
     ],
     version = AppDatabase.VERSION,
     exportSchema = false

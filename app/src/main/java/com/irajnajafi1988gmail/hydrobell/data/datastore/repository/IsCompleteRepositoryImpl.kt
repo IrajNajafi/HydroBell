@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-const val TAG = "IsCompleteRepositoryImpl"
 
 @Singleton
 class IsCompleteRepositoryImpl @Inject constructor(

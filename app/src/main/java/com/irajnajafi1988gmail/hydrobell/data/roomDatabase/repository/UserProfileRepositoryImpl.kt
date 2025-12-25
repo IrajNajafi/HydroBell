@@ -10,6 +10,7 @@ import javax.inject.Inject
 class UserProfileRepositoryImpl @Inject constructor(
     private val userProfileDao: UserProfileDao
 ): UserProfileRepository {
+
     override suspend fun insertUserProfile(profile: UserProfile) {
         userProfileDao.insertUserProfile(profile.toEntity())
     }

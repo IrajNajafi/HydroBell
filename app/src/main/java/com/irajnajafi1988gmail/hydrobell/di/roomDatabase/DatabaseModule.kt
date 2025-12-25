@@ -26,7 +26,7 @@ object DatabaseModule {
             AppDatabase::class.java,
             AppDatabase.DBNAME
         )
-            .fallbackToDestructiveMigration(true) // اختیاری ولی مفید
+            .fallbackToDestructiveMigration(true)
             .build()
     }
 
@@ -35,5 +35,5 @@ object DatabaseModule {
     fun providerUserProfileDao(db: AppDatabase): UserProfileDao = db.userProfileDao()
 
     @Provides
-    fun providerDailyDrinkDao(db: AppDatabase): DailyDrinkDao =db.dailyDrinkDao()
+    fun providerDailyDrinkDao(db: AppDatabase): DailyDrinkDao = db.dailyDrinkDao()
 }
