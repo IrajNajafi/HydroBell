@@ -1,5 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model
-
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model
 
 
 fun calculateWaterState(

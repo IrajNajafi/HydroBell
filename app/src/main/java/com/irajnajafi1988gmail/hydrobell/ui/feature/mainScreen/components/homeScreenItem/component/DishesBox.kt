@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.ItemDishes
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model.ItemDishes
 
 @Composable
 fun DishesBox(

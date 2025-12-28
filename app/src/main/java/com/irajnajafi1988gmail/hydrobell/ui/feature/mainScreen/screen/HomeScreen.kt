@@ -32,16 +32,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.irajnajafi1988gmail.hydrobell.R
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.DishesBox
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.RefreshIcon
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.TItemMessage
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.WaterActionRow
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.WaterProgressCard
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.ItemDishes
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.MessageDrinkStatus
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.DailyDrinkViewModel
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.DishesViewModel
-import kotlin.div
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component.DishesBox
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component.RefreshIcon
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component.TItemMessage
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component.WaterActionRow
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component.WaterProgressCard
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model.ItemDishes
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.viewModel.DailyDrinkViewModel
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.viewModel.DishesViewModel
 import com.irajnajafi1988gmail.hydrobell.ui.theme.BluePrimary
 import com.irajnajafi1988gmail.hydrobell.ui.theme.LevelMediumBorder
 import com.irajnajafi1988gmail.hydrobell.ui.theme.LevelHighBorder
@@ -75,9 +73,9 @@ fun HomeScreen(
         ItemDishes(R.drawable.cup125, "125 ml", 125),
         ItemDishes(R.drawable.cup175, "175 ml", 175),
         ItemDishes(R.drawable.cup200, "200 ml", 200),
-        ItemDishes(R.drawable.cup125, "250 ml", 250),
-        ItemDishes(R.drawable.cup250, "500 ml", 500),
-        ItemDishes(R.drawable.cup100, "1000 ml", 1000)
+        ItemDishes(R.drawable.cup250, "250 ml", 250),
+        ItemDishes(R.drawable.cup500, "500 ml", 500),
+        ItemDishes(R.drawable.cup1000, "1000 ml", 1000)
     )
 
     // ------------------------------

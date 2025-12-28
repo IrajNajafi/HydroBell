@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.utils
 
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.UserProfile
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.ActivityLevel

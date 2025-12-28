@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model
 
 import androidx.compose.ui.graphics.Color
 

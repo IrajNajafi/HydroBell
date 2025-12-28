@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect

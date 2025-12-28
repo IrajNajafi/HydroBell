@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.settingScreenItem.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,6 +6,7 @@ import com.irajnajafi1988gmail.hydrobell.domain.datastore.model.IsCompleteUseCas
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.UserProfileUseCase
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.ResettableUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +18,7 @@ class SettingViewModel @Inject constructor(
     private val userProfileUseCase: UserProfileUseCase,
     private val isCompleteUseCase: IsCompleteUseCase,
 
-) : ViewModel() {
+    ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ResettableUiState())
     val uiState: StateFlow<ResettableUiState> = _uiState.asStateFlow()
@@ -36,7 +37,7 @@ class SettingViewModel @Inject constructor(
                 // ریست وضعیت کامل بودن پروفایل
                 isCompleteUseCase.setProfileCompleteUseCase(false)
 
-                kotlinx.coroutines.delay(300)
+                delay(300)
                 // اعلام موفقیت
                 _uiState.value = ResettableUiState(
                     isDone = true
@@ -50,4 +51,3 @@ class SettingViewModel @Inject constructor(
         }
     }
 }
-

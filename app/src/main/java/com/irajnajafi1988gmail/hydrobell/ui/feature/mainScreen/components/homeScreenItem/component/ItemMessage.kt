@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -18,8 +18,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.irajnajafi1988gmail.hydrobell.R
-import com.irajnajafi1988gmail.hydrobell.ui.theme.Pink80
-import com.irajnajafi1988gmail.hydrobell.ui.theme.buttonContainerColor
 import com.irajnajafi1988gmail.hydrobell.ui.theme.buttonDisabledContainerColor
 
 @Composable

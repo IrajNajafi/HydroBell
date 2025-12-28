@@ -1,7 +1,7 @@
 package com.irajnajafi1988gmail.hydrobell.domain.datastore.usecase
 
 import com.irajnajafi1988gmail.hydrobell.domain.datastore.repository.DishesRepository
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.ItemDishes
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model.ItemDishes
 import javax.inject.Inject
 
 class GetSelectedDishUseCase @Inject constructor(

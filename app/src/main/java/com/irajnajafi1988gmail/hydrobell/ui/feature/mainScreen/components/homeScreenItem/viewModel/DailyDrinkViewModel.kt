@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -7,17 +7,15 @@ import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.DailyDrink
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.DailyDrinkUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.UserProfileUseCase
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.ResettableUiState
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.WaterCalculatorDynamic
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.utils.WaterCalculatorDynamic
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
-
 
 @HiltViewModel
 class DailyDrinkViewModel @Inject constructor(

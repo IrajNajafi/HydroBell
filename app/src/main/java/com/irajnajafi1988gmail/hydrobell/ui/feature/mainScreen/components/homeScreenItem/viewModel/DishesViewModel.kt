@@ -1,10 +1,10 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.irajnajafi1988gmail.hydrobell.domain.datastore.model.DishesUseCase
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.ItemDishes
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model.ItemDishes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -36,7 +36,7 @@ class DishesViewModel @Inject constructor(
         useCase.getSelectedDishUseCase()
             .stateIn(
                 viewModelScope,
-                SharingStarted.WhileSubscribed(5_000),
+                SharingStarted.Companion.WhileSubscribed(5_000),
                 DEFAULT_DISH
             )
 

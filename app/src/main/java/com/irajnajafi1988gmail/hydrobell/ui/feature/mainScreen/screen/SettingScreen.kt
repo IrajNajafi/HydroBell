@@ -13,20 +13,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.gson.annotations.Until
 import com.irajnajafi1988gmail.hydrobell.navigition.NaveScreen
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.DailyDrinkViewModel
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.DishesViewModel
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.MainScreenViewModel
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.SettingViewModel
-import kotlinx.coroutines.delay
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.viewModel.DailyDrinkViewModel
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.viewModel.DishesViewModel
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.settingScreenItem.viewModel.SettingViewModel
 
 @Composable
 fun SettingScreen(

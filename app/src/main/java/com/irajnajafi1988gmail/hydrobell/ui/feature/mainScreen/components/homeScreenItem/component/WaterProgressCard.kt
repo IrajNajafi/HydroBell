@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
@@ -10,10 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.irajnajafi1988gmail.hydrobell.R
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.calculateWaterState
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.toUiStyle
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model.calculateWaterState
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model.toUiStyle
 
 @Composable
 fun WaterProgressCard(
@@ -74,7 +75,7 @@ private fun WaterSideIcon(
     iconRes: Int,
     modifier: Modifier,
     tint: Color,
-    size: androidx.compose.ui.unit.Dp
+    size: Dp
 ) {
     Icon(
         painter = painterResource(iconRes),

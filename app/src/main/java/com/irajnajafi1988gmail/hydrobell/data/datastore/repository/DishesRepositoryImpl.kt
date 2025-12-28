@@ -6,7 +6,7 @@ import com.irajnajafi1988gmail.hydrobell.R
 import com.irajnajafi1988gmail.hydrobell.data.datastore.prefkeys.DishesPrefKeys
 import com.irajnajafi1988gmail.hydrobell.data.datastore.provider.DishesPreferencesDataStore
 import com.irajnajafi1988gmail.hydrobell.domain.datastore.repository.DishesRepository
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.model.ItemDishes
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model.ItemDishes
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
