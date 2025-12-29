@@ -4,6 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,27 +25,17 @@ fun AppNavigation(
     val navController = rememberNavController()
     val isProfileComplete by splashViewModel.isProfileComplete.collectAsState()
 
-    // 🔹 فقط یک‌بار ناوبری
-    LaunchedEffect(isProfileComplete) {
+
+    LaunchedEffect(Unit) {
         delay(1500)
         when (isProfileComplete) {
-            true -> {
-                navController.navigate(NaveScreen.MainScreen.route) {
-                    popUpTo(NaveScreen.SplashScreenContent.route) {
-                        inclusive = true
-                    }
-                }
+            true -> navController.navigate(NaveScreen.MainScreen.route) {
+                popUpTo(NaveScreen.SplashScreenContent.route) { inclusive = true }
             }
-
-            false -> {
-                navController.navigate(NaveScreen.MainSetupScreen.route) {
-                    popUpTo(NaveScreen.SplashScreenContent.route) {
-                        inclusive = true
-                    }
-                }
+            false -> navController.navigate(NaveScreen.MainSetupScreen.route) {
+                popUpTo(NaveScreen.SplashScreenContent.route) { inclusive = true }
             }
-
-            null -> Unit // هنوز لود نشده
+            null -> Unit
         }
     }
 

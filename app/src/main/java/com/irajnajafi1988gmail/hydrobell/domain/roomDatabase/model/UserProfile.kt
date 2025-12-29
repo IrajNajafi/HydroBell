@@ -7,8 +7,8 @@ import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Gende
 data class UserProfile(
     val id: Int = 1,
     val gender: Gender = Gender.NONE,
-    val weight: Int = 0,
-    val age: Int = 0,
+    val weight: Int = 65,
+    val age: Int = 25,
     val activityLaval: ActivityLevel = ActivityLevel.NONE,
     val environment: Environment = Environment.NONE
 )

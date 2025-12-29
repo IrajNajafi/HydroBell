@@ -9,4 +9,5 @@ data class IsCompleteUseCase(
     val setProfileCompleteUseCase: SetProfileCompleteUseCase,
     val resetProfileCompleteUseCase: ResetProfileCompleteUseCase
 
+
 )

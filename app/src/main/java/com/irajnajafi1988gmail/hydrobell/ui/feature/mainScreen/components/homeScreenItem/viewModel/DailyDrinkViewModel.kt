@@ -3,6 +3,7 @@ package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeS
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.common.LoadTodayDrinkUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.DailyDrink
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.DailyDrinkUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.UserProfileUseCase
@@ -20,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DailyDrinkViewModel @Inject constructor(
     private val dailyDrinkUseCase: DailyDrinkUseCase,
-    private val userProfileUseCase: UserProfileUseCase
+    private val loadTodayDrinkUseCase: LoadTodayDrinkUseCase
 ) : ViewModel() {
     companion object {
         private const val TAG = "DailyDrinkViewModel"
@@ -41,43 +42,13 @@ class DailyDrinkViewModel @Inject constructor(
     init {
         loadToday()
     }
-
     private fun loadToday() {
         viewModelScope.launch {
-            try {
-                val todayDate = LocalDate.now().toString()
-
-                // 1️⃣ گرفتن پروفایل
-                val profile = userProfileUseCase.getUserProfileUseCase()
-
-                // 2️⃣ محاسبه هدف روزانه
-                val goal = profile?.let {
-                    WaterCalculatorDynamic.calculateDailyNeedMl(it)
-                } ?: 0
-
-                _dailyNeed.value = goal
-
-                // 3️⃣ گرفتن آب امروز
-                val todayData = dailyDrinkUseCase.getByDate(todayDate).first()
-
-                // 4️⃣ اگر نبود، بساز
-                _todayDrink.value = todayData ?: run {
-                    val newDaily = DailyDrink(
-                        date = todayDate,
-                        totalDrink = 0
-                    )
-                    dailyDrinkUseCase.upsert(newDaily)
-                    newDaily
-                }
-
-            } catch (e: Exception) {
-                Log.e(TAG, "Error loading today data", e)
-                _todayDrink.value = null
-                _dailyNeed.value = 0
-            }
+            val (drink, target) = loadTodayDrinkUseCase()
+            _todayDrink.value = drink
+            _dailyNeed.value = target
         }
     }
-
 
     fun addAmount(amount: Int) {
         viewModelScope.launch {

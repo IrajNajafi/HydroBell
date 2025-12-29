@@ -1,7 +1,10 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.splash.screen
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,16 +36,21 @@ fun SplashScreenContent() {
         speed = 1.5f
     )
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+
+
+    ) {
 
         AnimatedWaveBackground()
-
         LottieAnimation(
             composition = composition,
             progress = { progress },
             modifier = Modifier
                 .size(120.dp)
-                .align(Alignment.Center)
+                .align(Alignment.BottomCenter)
+                .padding(bottom =80.dp)
+
         )
     }
 }

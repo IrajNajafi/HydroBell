@@ -37,7 +37,7 @@ class SettingViewModel @Inject constructor(
                 // ریست وضعیت کامل بودن پروفایل
                 isCompleteUseCase.setProfileCompleteUseCase(false)
 
-                delay(300)
+                delay(1000)
                 // اعلام موفقیت
                 _uiState.value = ResettableUiState(
                     isDone = true

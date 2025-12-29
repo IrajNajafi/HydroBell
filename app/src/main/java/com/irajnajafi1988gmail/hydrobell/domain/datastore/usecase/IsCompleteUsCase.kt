@@ -4,7 +4,6 @@ import com.irajnajafi1988gmail.hydrobell.domain.datastore.repository.IsCompleteR
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-
 class GetIsProfileCompleteUseCase @Inject constructor(
     private val repository: IsCompleteRepository
 ) { operator fun invoke(): Flow<Boolean> = repository.getIsProfileCompleteFlow() }

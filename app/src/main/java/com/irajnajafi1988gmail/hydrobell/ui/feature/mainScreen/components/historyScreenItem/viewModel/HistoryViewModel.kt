@@ -2,6 +2,7 @@ package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.histo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.common.LoadTodayDrinkUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.DailyDrink
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.DailyDrinkUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.UserProfileUseCase
@@ -30,8 +31,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
     private val getAllUseCase: GetAllUseCase,
-    private val dailyDrinkUseCase: DailyDrinkUseCase,
-    private val userProfileUseCase: UserProfileUseCase
+    private val loadTodayDrinkUseCase: LoadTodayDrinkUseCase
+
 ) : ViewModel() {
 
     // ----------------------------- 1️⃣ State Variables -----------------------------
@@ -86,22 +87,12 @@ class HistoryViewModel @Inject constructor(
     // Load daily target and today's drink from database
     private fun loadDailyTarget() {
         viewModelScope.launch {
-            try {
-                val profile = userProfileUseCase.getUserProfileUseCase()
-                val goal = profile?.let { WaterCalculatorDynamic.calculateDailyNeedMl(it) } ?: 0
-                _dailyTarget.value = goal
-
-                val todayDate = LocalDate.now().toString()
-                val todayData = dailyDrinkUseCase.getByDate(todayDate).first()
-                _todayDrink.value = todayData ?: DailyDrink(todayDate, 0).also {
-                    dailyDrinkUseCase.upsert(it)
-                }
-            } catch (e: Exception) {
-                _dailyTarget.value = 0
-                _todayDrink.value = null
-            }
+            val (_, target) = loadTodayDrinkUseCase()
+            _dailyTarget.value = target
         }
     }
+
+
 
 
     // ----------------------------- 4️⃣ Chart & Navigation Functions -----------------------------

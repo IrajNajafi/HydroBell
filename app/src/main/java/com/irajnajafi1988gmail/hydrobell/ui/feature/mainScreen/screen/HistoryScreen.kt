@@ -28,6 +28,7 @@ import com.irajnajafi1988gmail.hydrobell.R
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.historyScreenItem.component.HistoryRangeSelector
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.historyScreenItem.component.chart.BarChartPercent
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.historyScreenItem.viewModel.HistoryViewModel
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.settingScreenItem.component.WeeklyCompletion
 
 @Composable
 fun HistoryScreen(
@@ -107,6 +108,7 @@ fun HistoryScreen(
             }
         )
         Spacer(Modifier.height(20.dp))
+        WeeklyCompletion()
 
     }
 }

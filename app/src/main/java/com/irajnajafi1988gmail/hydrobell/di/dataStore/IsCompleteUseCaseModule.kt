@@ -23,7 +23,8 @@ object IsCompleteUseCaseModule {
         return IsCompleteUseCase(
             getIsProfileCompleteUseCase = GetIsProfileCompleteUseCase(repository),
             setProfileCompleteUseCase = SetProfileCompleteUseCase(repository),
-            resetProfileCompleteUseCase = ResetProfileCompleteUseCase(repository)
+            resetProfileCompleteUseCase = ResetProfileCompleteUseCase(repository),
+
 
         )
     }

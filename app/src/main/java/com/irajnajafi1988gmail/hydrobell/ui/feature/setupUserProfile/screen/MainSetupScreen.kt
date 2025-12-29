@@ -27,6 +27,7 @@ import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.model.UserProfile
 import com.irajnajafi1988gmail.hydrobell.navigition.NaveScreen
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.viewmodel.MainScreenViewModel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.loadingscreen.LoadingScreenWithWave
+import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.components.SetupStepContent
 import com.irajnajafi1988gmail.hydrobell.ui.feature.splash.viewmodel.SplashScreenContentViewModel
 import kotlinx.coroutines.delay
 
@@ -38,7 +39,7 @@ fun MainSetupScreen(
 ) {
 
     val setupCompleted by userProfile.setupCompleted.collectAsState()
-    val currentSetup by userProfile.currentSetup.collectAsState()
+    val currentSetup by userProfile.currentStep.collectAsState()
     val isNextEnabled by userProfile.isNextEnabled.collectAsState()
     val setGender by userProfile.selectedGender.collectAsState()
     val steps by userProfile.stepFlow.collectAsState()
@@ -85,73 +86,24 @@ fun MainSetupScreen(
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            when (currentSetup) {
-                0 -> {
-                    GenderScreen(
-                        modifier = Modifier,
-                        selectedGender = setGender,
-                        onSelect = { gender -> userProfile.setGender(gender) }
-                    )
-                }
+            SetupStepContent(
+                step = currentSetup,
+                gender = setGender,
+                weight = selectedWeight,
+                age = selectedAge,
+                activity = selectedActivityLevel,
+                environment = selectedOption,
+                onGenderSelected = { userProfile.setGender(it) },
+                onWeightChanged = { userProfile.setWeight(it) },
+                onAgeChanged = { userProfile.setAge(it) },
+                onActivityChanged = { userProfile.setActivityLevel(it) },
+                onEnvironmentChanged = { userProfile.setEnvironment(it) }
+            )
 
-                1 -> {
-                    WeightScreen(
-                        modifier = Modifier,
-                        imag = if (setGender == Gender.MALE) R.drawable.weight_man else R.drawable.weight_woman,
-                        weight = selectedWeight,
-                        label = "Kg",
-                        onValueChange = { weight ->
-                            userProfile.setWeight(weight)
-                        }
-
-                    )
-                }
-
-                2 -> {
-                    AgeScreen(
-                        modifier = Modifier,
-                        imag = if (setGender == Gender.MALE) R.drawable.age_man else R.drawable.age_woman,
-                        age = selectedAge,
-                        label = "Yr",
-                        onValueChange = { age ->
-                            userProfile.setAge(age)
-                        }
-                    )
-                }
-
-                3 -> {
-                    ActivityLavalScreen(
-                        modifier = Modifier,
-                        gender = setGender,
-                        selectedActivityLevel = selectedActivityLevel,
-                        onSelectedChange = { level ->
-                            userProfile.setActivityLevel(level)
-                        }
-
-                    )
-                }
-
-                4 -> {
-                    EnvironmentScreen(
-                        modifier = Modifier,
-                        selectedOption = selectedOption,
-                        onSelectedChange = { environment ->
-                            userProfile.setEnvironment(environment)
-                        }
-                    )
-                }
-
-                5 -> {
-                    LoadingScreenWithWave()
-
-                }
-            }
-            LaunchedEffect(setupCompleted) {
+            LaunchedEffect(key1 = setupCompleted) {
                 if (setupCompleted) {
                     navController.navigate(NaveScreen.MainScreen.route) {
-                        popUpTo(NaveScreen.MainSetupScreen.route) {
-                            inclusive = true
-                        }
+                        popUpTo(NaveScreen.MainSetupScreen.route) { inclusive = true }
                     }
                 }
             }
