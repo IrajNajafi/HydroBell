@@ -26,13 +26,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.irajnajafi1988gmail.hydrobell.R
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.historyScreenItem.component.HistoryRangeSelector
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.historyScreenItem.component.WeeklyCompletion
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.historyScreenItem.component.chart.BarChartPercent
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.historyScreenItem.model.HistoryRange
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.historyScreenItem.viewModel.HistoryViewModel
-import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.settingScreenItem.component.WeeklyCompletion
-
 @Composable
 fun HistoryScreen(
-    viewModel: HistoryViewModel = hiltViewModel(),
+    viewModel: HistoryViewModel = hiltViewModel()
 ) {
 
     val title by viewModel.title.collectAsState()
@@ -41,77 +41,82 @@ fun HistoryScreen(
     val selectedRange by viewModel.range.collectAsState()
     val canGoPrevious by viewModel.canGoPrevious.collectAsState()
     val canGoNext by viewModel.canGoNext.collectAsState()
-
-
+    val referenceDate by viewModel.referenceDate.collectAsState()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = 20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
-
-        ) {
-
-        // ------------------------- Title -------------------------
         Row(
-            horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
 
             Icon(
                 painter = painterResource(R.drawable.arrow_back),
-                contentDescription = null,
-                tint = if (canGoPrevious) Color.Black else Color.LightGray,
+                contentDescription = "Previous",
+                tint = if (canGoPrevious)
+                    androidx.compose.material3.MaterialTheme.colorScheme.onBackground
+                else Color.LightGray,
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable(enabled = canGoPrevious) { viewModel.movePrevious() }
+                    .then(
+                        if (canGoPrevious)
+                            Modifier.clickable { viewModel.movePrevious() }
+                        else Modifier
+                    )
             )
 
             Spacer(Modifier.width(8.dp))
+
             Text(
                 text = title,
-                color = Color.DarkGray,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
+
             Spacer(Modifier.width(8.dp))
 
             Icon(
                 painter = painterResource(R.drawable.arrow_back),
-                contentDescription = null,
+                contentDescription = "Next",
+                tint = if (canGoNext)
+                    androidx.compose.material3.MaterialTheme.colorScheme.onBackground
+                else Color.LightGray,
                 modifier = Modifier
                     .size(24.dp)
                     .rotate(180f)
-                    .clickable(enabled = canGoNext) { viewModel.moveNext() },
-                tint = if (canGoNext) Color.Black else Color.LightGray
+                    .then(
+                        if (canGoNext)
+                            Modifier.clickable { viewModel.moveNext() }
+                        else Modifier
+                    )
             )
         }
 
-
-        Spacer(Modifier.height(10.dp))
-
-        // ------------------------- Bar Chart -------------------------
+        Spacer(Modifier.height(12.dp))
 
         BarChartPercent(
             data = chartData,
-            dailyTarget = dailyTarget
+            dailyTarget = dailyTarget,
+            showCompletionMarks = selectedRange != HistoryRange.WEEK
         )
 
         Spacer(Modifier.height(20.dp))
 
-        // ------------------------- Range Selector -------------------------
         HistoryRangeSelector(
             selectedRange = selectedRange,
-            onRangeChange = { range ->
-                viewModel.changeRange(range)
-            }
+            onRangeChange = viewModel::changeRange
         )
-        Spacer(Modifier.height(20.dp))
-        WeeklyCompletion()
 
+        if (selectedRange == HistoryRange.WEEK) {
+            Spacer(Modifier.height(20.dp))
+            WeeklyCompletion(
+                weekData = chartData,
+                anchorDate = referenceDate
+            )
+        }
     }
 }
-
-
-

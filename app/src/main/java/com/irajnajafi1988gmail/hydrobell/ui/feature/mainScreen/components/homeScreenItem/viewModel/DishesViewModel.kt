@@ -49,6 +49,10 @@ class DishesViewModel @Inject constructor(
             }
         }
     }
+    fun closeDishes() {
+        _showDishes.value = false
+    }
+
 
     fun resetDishes() {
         viewModelScope.launch {

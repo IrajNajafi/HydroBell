@@ -19,7 +19,8 @@ fun ChartBarsRow(
     chartHeight: Dp,
     yAxisWidth: Dp,
     labelHeight: Dp,
-    barMaxHeightFactor: Float
+    barMaxHeightFactor: Float,
+    showCompletionMarks: Boolean = false
 ) {
     Row(
         modifier = Modifier
@@ -37,7 +38,8 @@ fun ChartBarsRow(
                 chartHeight = chartHeight,
                 barHeight = barHeight,
                 labelHeight = labelHeight,
-                onClick = { onItemSelected(item) }
+                onClick = { onItemSelected(item) },
+                showCompletionMarks = showCompletionMarks // ✅ اصلاح شد
             )
         }
     }

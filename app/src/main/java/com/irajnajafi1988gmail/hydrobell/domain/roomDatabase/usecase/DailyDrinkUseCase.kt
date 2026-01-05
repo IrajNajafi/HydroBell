@@ -11,8 +11,10 @@ import kotlin.text.insert
 class UpsertUseCase @Inject constructor(
     private val repository: DailyDrinkRepository
 ) {
-    suspend operator fun invoke(daily: DailyDrink) = repository.upsert(daily)
+    suspend operator fun invoke(daily: DailyDrink) =
+        repository.upsert(daily)
 }
+
 
 class GetByDateUseCase @Inject constructor(
     private val repository: DailyDrinkRepository
@@ -39,30 +41,42 @@ class ClearAllUseCase @Inject constructor(
 ) {
     suspend operator fun invoke() = repository.clearAll()
 }
-
-
 class AddAmountToDailyDrinkUseCase @Inject constructor(
     private val repository: DailyDrinkRepository
 ) {
-
     suspend operator fun invoke(date: String, amount: Int): DailyDrink {
 
         val current = repository.getByDate(date).first()
 
-        return if (current != null) {
-            val updated = current.copy(
+        val updated = if (current != null) {
+            current.copy(
                 totalDrink = current.totalDrink + amount
+                // isCompleted حفظ می‌شود
             )
-            repository.upsert(updated)
-            updated
         } else {
-            val newDrink = DailyDrink(
+            DailyDrink(
                 date = date,
-                totalDrink = amount
+                totalDrink = amount,
+                isCompleted = false
             )
-            repository.upsert(newDrink)
-            newDrink
         }
+
+        repository.upsert(updated)
+        return updated
+    }
+}
+
+
+class SetDayCompletedUseCase @Inject constructor(
+    private val repository: DailyDrinkRepository
+) {
+    suspend operator fun invoke(date: String, completed: Boolean) {
+        val current = repository.getByDate(date).first()
+            ?: DailyDrink(date, 0, false)
+
+        repository.upsert(
+            current.copy(isCompleted = completed)
+        )
     }
 }
 class ResetTodayDrinkUseCase @Inject constructor(
@@ -71,11 +85,13 @@ class ResetTodayDrinkUseCase @Inject constructor(
     suspend operator fun invoke(date: String): DailyDrink {
         val current = repository.getByDate(date).first()
 
-        val resetDrink = (current ?: DailyDrink(date = date, totalDrink = 0))
-            .copy(totalDrink = 0)
+        val resetDrink = (current ?: DailyDrink(date, 0, false))
+            .copy(
+                totalDrink = 0,
+                isCompleted = false
+            )
 
         repository.upsert(resetDrink)
         return resetDrink
     }
 }
-

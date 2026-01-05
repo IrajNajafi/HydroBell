@@ -27,7 +27,8 @@ fun ChartBarItem(
     chartHeight: Dp,
     barHeight: Dp,
     labelHeight: Dp,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    showCompletionMarks: Boolean = false // ✅ فعلاً پارامتر موجوده
 ) {
     val valueAreaHeight = 43.dp
 
@@ -44,20 +45,28 @@ fun ChartBarItem(
             modifier = Modifier.height(valueAreaHeight),
             contentAlignment = Alignment.BottomCenter
         ) {
-            if (item.value > 0) {
+            if (item.value > 0 || showCompletionMarks) { // ✅ شرط اصلاح شد
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "${item.value}",
+                        text = if (showCompletionMarks) {
+                            // نمایش درصد تکمیل وقتی حالت ماه/سال است
+                            "${(item.value * 100 / item.target)}%"
+                        } else {
+                            // نمایش مقدار واقعی وقتی حالت هفته است
+                            "${item.value}"
+                        },
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
                         color = if (isSelected) BluePrimary else Color.DarkGray
                     )
-                    Text(
-                        text = "ml",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.DarkGray
-                    )
+                    if (!showCompletionMarks) {
+                        Text(
+                            text = "ml",
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.DarkGray
+                        )
+                    }
                 }
             }
         }

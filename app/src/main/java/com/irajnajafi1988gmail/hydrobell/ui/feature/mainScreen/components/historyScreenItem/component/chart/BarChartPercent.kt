@@ -16,7 +16,8 @@ import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.histor
 @Composable
 fun BarChartPercent(
     data: List<ChartBarData>,
-    dailyTarget: Int
+    dailyTarget: Int,
+    showCompletionMarks: Boolean = false
 ) {
     val scrollState = rememberScrollState()
     var selectedItem by remember { mutableStateOf<ChartBarData?>(null) }
@@ -34,9 +35,8 @@ fun BarChartPercent(
             data = data,
             selectedItem = selectedItem,
             onItemSelected = { selectedItem = it },
-            scrollState = scrollState
+            scrollState = scrollState,
+            showCompletionMarks = showCompletionMarks // ✅ این هم اضافه شد
         )
     }
 }
-
-

@@ -32,14 +32,14 @@ fun ChartGrid(
         }
 
         drawLine(
-            color = Color.DarkGray.copy(alpha = 0.4f),
+            color = Color.Black.copy(alpha = 0.4f),
             start = Offset(yAxisX, 0f),
             end = Offset(yAxisX, bottom),
             strokeWidth = 2.dp.toPx()
         )
 
         drawLine(
-            color = Color.DarkGray.copy(alpha = 0.4f),
+            color = Color.Black.copy(alpha = 0.4f),
             start = Offset(yAxisX, bottom),
             end = Offset(size.width, bottom),
             strokeWidth = 2.dp.toPx()

@@ -4,15 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component.AlarmScreen
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.screen.MainScreen
-import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.loadingscreen.LoadingScreenWithWave
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.screen.MainSetupScreen
 import com.irajnajafi1988gmail.hydrobell.ui.feature.splash.screen.SplashScreenContent
 import com.irajnajafi1988gmail.hydrobell.ui.feature.splash.viewmodel.SplashScreenContentViewModel
@@ -53,6 +50,9 @@ fun AppNavigation(
 
         composable(NaveScreen.MainScreen.route) {
             MainScreen(navController = navController)
+        }
+        composable (NaveScreen.AlarmScreen.route){
+            AlarmScreen(navController=navController)
         }
     }
 }

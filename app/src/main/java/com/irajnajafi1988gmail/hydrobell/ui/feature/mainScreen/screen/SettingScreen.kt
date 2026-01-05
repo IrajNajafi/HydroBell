@@ -66,7 +66,11 @@ fun SettingScreen(
             ) {
                 LoadingReset()
                 Spacer(modifier = Modifier.height(15.dp))
-                Text("در حال ریست...", modifier = Modifier.padding(8.dp))
+                Text("Resetting...",
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                        .padding(8.dp)
+                )
             }
         }
 

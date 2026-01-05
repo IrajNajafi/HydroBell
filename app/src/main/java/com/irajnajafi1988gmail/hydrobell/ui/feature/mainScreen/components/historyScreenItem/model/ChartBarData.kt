@@ -6,5 +6,6 @@ data class ChartBarData(
     val date: LocalDate,
     val label: String,   // Sat, Sun, ...
     val value: Int,
-    val target: Int
+    val target: Int,
+    val isCompleted: Boolean
 )

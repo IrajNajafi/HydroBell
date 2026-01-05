@@ -53,16 +53,16 @@ class DailyDrinkViewModel @Inject constructor(
     fun addAmount(amount: Int) {
         viewModelScope.launch {
             val today = LocalDate.now().toString()
-            Log.d(TAG, "Adding amount: $amount ml to date: $today")
-
             val updated = dailyDrinkUseCase.addAmountToDailyDrinkUseCase(today, amount)
 
             _todayDrink.value = updated
 
-            Log.d(TAG, "TodayDrink updated: $updated")
+            // اگر بخوای امروز رو تکمیل کن
+            if (updated.totalDrink >= _dailyNeed.value) {
+                dailyDrinkUseCase.setDayCompletedUseCase(today, true)
+            }
         }
     }
-
 
     fun clearAll() {
         viewModelScope.launch {

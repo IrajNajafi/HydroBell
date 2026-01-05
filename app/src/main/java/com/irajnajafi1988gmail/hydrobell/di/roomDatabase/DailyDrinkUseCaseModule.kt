@@ -8,6 +8,7 @@ import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.GetAllUseCa
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.GetByDateUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.GetLatestUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.ResetTodayDrinkUseCase
+import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.SetDayCompletedUseCase
 import com.irajnajafi1988gmail.hydrobell.domain.roomDatabase.usecase.UpsertUseCase
 import dagger.Module
 import dagger.Provides
@@ -30,7 +31,8 @@ object DailyDrinkUseCaseModule {
             getLatest = GetLatestUseCase(repository),
             clearAll = ClearAllUseCase(repository),
             addAmountToDailyDrinkUseCase = AddAmountToDailyDrinkUseCase(repository),
-            resetTodayDrinkUseCase = ResetTodayDrinkUseCase(repository)
+            resetTodayDrinkUseCase = ResetTodayDrinkUseCase(repository),
+            setDayCompletedUseCase = SetDayCompletedUseCase(repository)
 
         )
     }

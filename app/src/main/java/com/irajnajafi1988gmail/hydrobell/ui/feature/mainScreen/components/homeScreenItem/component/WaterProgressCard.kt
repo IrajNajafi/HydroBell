@@ -47,7 +47,7 @@ fun WaterProgressCard(
         WaterSideIcon(
             iconRes = R.drawable.drop,
             modifier = Modifier.offset(x = (-150).dp, y = 25.dp),
-            tint = Color(0xFF00A5FF),
+            tint =style.progressColor,
             size = 32.dp
         )
         //Adam icon

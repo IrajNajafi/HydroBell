@@ -7,6 +7,7 @@ fun DailyDrink.toEntity(): DailyDrinkEntity{
     return DailyDrinkEntity(
         date = date,
         totalDrink = totalDrink,
+        isCompleted = isCompleted
 
     )
 }
@@ -15,6 +16,7 @@ fun DailyDrinkEntity.toDomain(): DailyDrink{
     return DailyDrink(
         date = date,
         totalDrink = totalDrink,
+        isCompleted = isCompleted
 
     )
 }

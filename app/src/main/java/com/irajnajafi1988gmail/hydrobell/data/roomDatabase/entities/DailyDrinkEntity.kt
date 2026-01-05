@@ -8,5 +8,6 @@ import com.irajnajafi1988gmail.hydrobell.data.roomDatabase.db.AppDatabase
 data class DailyDrinkEntity(
     @PrimaryKey
     val date: String,      // yyyy-MM-dd
-    val totalDrink: Int,   // مقدار مصرف‌شده امروز
+    val totalDrink: Int,
+    val isCompleted: Boolean// مقدار مصرف‌شده امروز
     )

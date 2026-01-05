@@ -1,6 +1,7 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.settingScreenItem.component
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -25,9 +26,10 @@ fun LoadingReset() {
         iterations = LottieConstants.IterateForever,
         speed = 1.5f
     )
+
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
         ,
         contentAlignment = Alignment.Center
     ) {
@@ -38,5 +40,6 @@ fun LoadingReset() {
                 .size(200.dp)
                 .align(Alignment.Center)
         )
+
     }
 }

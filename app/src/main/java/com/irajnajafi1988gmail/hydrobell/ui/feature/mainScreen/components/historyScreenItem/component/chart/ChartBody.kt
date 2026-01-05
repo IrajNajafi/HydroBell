@@ -16,7 +16,8 @@ fun ChartBody(
     data: List<ChartBarData>,
     selectedItem: ChartBarData?,
     onItemSelected: (ChartBarData) -> Unit,
-    scrollState: ScrollState
+    scrollState: ScrollState,
+    showCompletionMarks: Boolean = false
 ) {
     val yAxisWidth = 50.dp
     val labelHeight = 40.dp
@@ -52,7 +53,8 @@ fun ChartBody(
             chartHeight = chartHeight,
             yAxisWidth = yAxisWidth,
             labelHeight = labelHeight,
-            barMaxHeightFactor = barMaxHeightFactor
+            barMaxHeightFactor = barMaxHeightFactor,
+            showCompletionMarks = showCompletionMarks
         )
     }
 }

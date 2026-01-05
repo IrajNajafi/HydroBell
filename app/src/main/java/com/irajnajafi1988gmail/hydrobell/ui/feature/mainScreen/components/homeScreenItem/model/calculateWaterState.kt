@@ -1,5 +1,9 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model
 
+import com.irajnajafi1988gmail.hydrobell.ui.theme.BluePrimary
+import com.irajnajafi1988gmail.hydrobell.ui.theme.LevelHighBorder
+import com.irajnajafi1988gmail.hydrobell.ui.theme.LevelMediumBorder
+
 
 fun calculateWaterState(
     drunkWater: Int,
