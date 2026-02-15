@@ -9,14 +9,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.irajnajafi1988gmail.hydrobell.ui.theme.BrightOrange
@@ -25,8 +30,11 @@ import com.irajnajafi1988gmail.hydrobell.ui.theme.BrightOrange
 fun ItemPath(
     color: Color,
     icon: Int,
-    label: String
+    labelRes: Int?,
+    value: Int?
 ) {
+    val layoutDirection = LocalLayoutDirection.current
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -34,12 +42,12 @@ fun ItemPath(
         Box(
             modifier = Modifier
                 .size(width = 50.dp, height = 28.dp)
+                .graphicsLayer(
+                    scaleX = if (layoutDirection == LayoutDirection.Rtl) -1f else 1f
+                )
                 .clip(arrowShape())
                 .background(color)
-                .border(
-                    2.dp, BrightOrange,
-                    arrowShape()
-                ),
+                .border(2.dp, BrightOrange, arrowShape()),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -49,12 +57,20 @@ fun ItemPath(
                 modifier = Modifier.size(15.dp)
             )
         }
+
         Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = label,
-            fontSize = 10.sp,
-            fontWeight = FontWeight.Medium,
-            color =Color.DarkGray,
-        )
+
+        if (labelRes != null) {
+            Text(
+                text = if (value != null) {
+                    stringResource(labelRes, value) // 👈 weight / age
+                } else {
+                    stringResource(labelRes)        // 👈 gender / activity / env
+                },
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
     }
 }

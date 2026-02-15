@@ -1,5 +1,7 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.screen
 
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,12 +28,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -52,7 +57,9 @@ import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeSc
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.utils.DrinkItems
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.viewModel.DailyDrinkViewModel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.viewModel.DishesViewModel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.nio.file.WatchEvent
 
 @Composable
@@ -62,6 +69,23 @@ fun HomeScreen(
     dishesViewModel: DishesViewModel = hiltViewModel()
 ) {
 
+    // Back press handling
+    var backPressedOnce by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    BackHandler {
+        if (backPressedOnce) {
+            (context as? android.app.Activity)?.finish()
+        } else {
+            backPressedOnce = true
+            Toast.makeText(context, context.getString(R.string.exit), Toast.LENGTH_SHORT).show()
+
+            coroutineScope.launch {
+                delay(1000)
+                backPressedOnce = false
+            }
+        }
+    }
     /* ------------------------------ */
     /* 🎬 Lottie (FAB animation) */
     /* ------------------------------ */
@@ -159,15 +183,18 @@ fun HomeScreen(
 
             Spacer(Modifier.height(20.dp))
 
+            val numberText = stringResource(R.string.water_amount, drunkWater, dailyNeed)
+
             WaterProgressCard(
                 drunkWater = drunkWater,
                 dailyWaterMl = dailyNeed,
-                number = "$drunkWater / $dailyNeed Ml",
+                number = numberText,
                 text = cupsText,
                 numberMl = selectedLabel,
                 selectedIcon = selectedIcon,
                 onClick = { dailyDrink.addAmount(selectedVolume) }
             )
+
 
             WaterActionRow()
 
@@ -218,6 +245,8 @@ fun HomeScreen(
 // Returns Pair(text, color)
 // ------------------------------
 
+
+@Composable
 fun calculateDrinkStatus(
     drunk: Int,
     goal: Int
@@ -227,27 +256,27 @@ fun calculateDrinkStatus(
 
     val text = when (state) {
         WaterState.START ->
-            "Start drinking your first glass of water"
+            stringResource(R.string.start_drinking_your_first_glass_of_water)
 
         WaterState.NORMAL ->
-            "Keep going! ${goal - drunk} ml to reach your goal"
+            stringResource(R.string.keep_going, goal - drunk)
 
         WaterState.GOAL ->
-            "You reached your daily water goal 💦"
+            stringResource(R.string.goal_reached)
 
         WaterState.OVER ->
-            "You exceeded your goal by ${drunk - goal} ml!"
+            stringResource(R.string.over_goal, drunk - goal)
     }
 
     return text to state
 }
 
-
 // ------------------------------
 // Helper function to calculate cups text
 // ------------------------------
+@Composable
 private fun calculateCupsText(drunk: Int, goal: Int, volume: Int): String {
     val cupsDrunk = drunk / volume
     val cupsGoal = goal / volume
-    return "$cupsDrunk cups / $cupsGoal cups"
+    return stringResource(R.string.cups_text, cupsDrunk, cupsGoal)
 }

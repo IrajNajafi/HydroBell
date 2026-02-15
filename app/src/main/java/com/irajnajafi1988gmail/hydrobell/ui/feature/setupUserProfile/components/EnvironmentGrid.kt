@@ -37,12 +37,25 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.irajnajafi1988gmail.hydrobell.R
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Environment
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvColdEnd
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvColdStart
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvFreezingEnd
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvFreezingStart
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvHotEnd
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvHotStart
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvNoneEnd
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvNoneStart
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvNormalEnd
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvNormalStart
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvWarmEnd
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvWarmStart
 
 @Composable
 fun EnvironmentGrid(
@@ -106,12 +119,12 @@ fun ItemEnvironment(
     )
 
     val (color1, color2) = when (item) {
-        Environment.NONE -> Color(0xFFE0E0E0) to Color(0xFFBDBDBD)
-        Environment.FREEZING -> Color(0xFFB3E5FC) to Color(0xFF4FC3F7)
-        Environment.COLD -> Color(0xFF81D4FA) to Color(0xFF29B6F6)
-        Environment.NORMAL -> Color(0xFFA5D6A7) to Color(0xFF66BB6A)
-        Environment.WARM -> Color(0xFFFFE0B2) to Color(0xFFFFB74D)
-        Environment.HOT -> Color(0xFFFFAB91) to Color(0xFFFF7043)
+        Environment.NONE -> EnvNoneStart to EnvNoneEnd
+        Environment.FREEZING -> EnvFreezingStart to EnvFreezingEnd
+        Environment.COLD -> EnvColdStart to EnvColdEnd
+        Environment.NORMAL -> EnvNormalStart to EnvNormalEnd
+        Environment.WARM -> EnvWarmStart to EnvWarmEnd
+        Environment.HOT -> EnvHotStart to EnvHotEnd
     }
 
     val glow = color2.copy(alpha = 0.5f)
@@ -160,7 +173,7 @@ fun ItemEnvironment(
                 )
 
                 Text(
-                    text = item.displayName(),
+                    text = stringResource(item.label) ,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = textColor,

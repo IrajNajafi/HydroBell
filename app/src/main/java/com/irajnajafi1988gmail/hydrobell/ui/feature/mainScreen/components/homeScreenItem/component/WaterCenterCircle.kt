@@ -9,13 +9,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,8 +55,31 @@ fun WaterCenterCircle(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Text(number, fontSize = 22.sp)
-                Text(text, fontSize = 14.sp)
+                Text(
+                    number,
+                    fontSize = 22.sp,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.9f) ,
+                            offset = Offset(2f, 2f),
+                            blurRadius = 6f
+                        )
+                    )
+                )
+
+                Text(text,
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.9f) ,
+                            offset = Offset(2f, 2f),
+                            blurRadius = 6f
+                        )
+                    )
+
+                )
 
                 icon?.let {
                     Icon(
@@ -61,7 +87,17 @@ fun WaterCenterCircle(
                         contentDescription = null,
                         modifier = Modifier.size(28.dp)
                     )
-                    Text(numberMl, fontSize = 14.sp)
+                    Text(numberMl, fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            shadow = Shadow(
+                                color = Color.Black.copy(alpha = 0.9f) ,
+                                offset = Offset(2f, 2f),
+                                blurRadius = 6f
+                            )
+                        )
+
+                    )
                 }
 
                 Image(

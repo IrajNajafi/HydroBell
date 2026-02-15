@@ -1,5 +1,6 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.components
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
@@ -34,11 +35,17 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.irajnajafi1988gmail.hydrobell.R
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.ActivityLevel
+import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Environment
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvFreezingStart
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvHotStart
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvNoneEnd
+import com.irajnajafi1988gmail.hydrobell.ui.theme.EnvNormalEnd
 import com.irajnajafi1988gmail.hydrobell.ui.theme.LevelExtremeBorder
 import com.irajnajafi1988gmail.hydrobell.ui.theme.LevelHighBg
 import com.irajnajafi1988gmail.hydrobell.ui.theme.LevelHighBorder
@@ -69,29 +76,24 @@ fun LevelChipGroupPro(
             val scale by animateFloatAsState(if (isSelected) 1.05f else 1f)
             val elevation by animateDpAsState(if (isSelected) 8.dp else 1.dp)
 
+            // رنگ پس‌زمینه
             val bgColor = when (item) {
-                ActivityLevel.NONE -> Color(0xFFBDBDBD)
-                ActivityLevel.LOW -> LevelSelectedBg
-                ActivityLevel.MEDIUM -> LevelMediumBg
-                ActivityLevel.HIGH -> LevelHighBg
+                ActivityLevel.NONE -> EnvNoneEnd
+                ActivityLevel.LOW -> EnvFreezingStart
+                ActivityLevel.MEDIUM -> EnvNormalEnd
+                ActivityLevel.HIGH ->EnvHotStart
             }
 
-            val borderColor = when (item) {
-                ActivityLevel.NONE -> Color.Transparent
-                ActivityLevel.LOW -> LevelSelectedBorder
-                ActivityLevel.MEDIUM -> LevelMediumBorder
-                ActivityLevel.HIGH -> LevelHighBorder
-            }
+
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .scale(scale)
                     .shadow(elevation, RoundedCornerShape(18.dp))
-
-                    .background(bgColor)
+                    .background(bgColor, RoundedCornerShape(18.dp))
                     .clickable { onSelectedChange(item) }
-                    .padding(16.dp)
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -102,21 +104,25 @@ fun LevelChipGroupPro(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         ActivityLevelIcon(item)
 
-                        Spacer(modifier = Modifier.size(12.dp))
-
+                        Spacer(modifier = Modifier.width(12.dp))
+                        val textColor by animateColorAsState(
+                            targetValue = if (isSelected) Color.White else Color.Black,
+                            label = "textColor"
+                        )
                         Text(
-                            text = item.name,
+                            text = stringResource(id = item.label),
                             fontSize = 18.sp,
                             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color =textColor
                         )
                     }
 
-                    if (isSelected) {
+                    if (isSelected && item != ActivityLevel.NONE) {
                         Text(
-                            "✔",
-                            fontSize = 20.sp,
-                            color = borderColor
+                            text = "✔",
+                            fontSize = 22.sp,
+                            color = Color.White,
+                            fontWeight = FontWeight.ExtraBold
                         )
                     }
                 }
@@ -129,16 +135,9 @@ fun LevelChipGroupPro(
 fun ActivityLevelIcon(level: ActivityLevel) {
     val image = when (level) {
         ActivityLevel.NONE -> R.drawable.none
-
         ActivityLevel.LOW -> R.drawable.low
-
-
         ActivityLevel.MEDIUM -> R.drawable.medium
-
-
         ActivityLevel.HIGH -> R.drawable.high
-
-
     }
 
     Image(

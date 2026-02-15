@@ -1,5 +1,4 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.historyScreenItem.model
-
 import java.time.LocalDate
 
 data class ChartBarData(

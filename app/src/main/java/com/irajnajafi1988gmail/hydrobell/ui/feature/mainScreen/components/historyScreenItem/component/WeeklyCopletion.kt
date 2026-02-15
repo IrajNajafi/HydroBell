@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.irajnajafi1988gmail.hydrobell.R
@@ -51,9 +52,10 @@ fun WeeklyCompletion(
             .background(SkyBlue)
             .padding(12.dp)
     ) {
-        Column {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Weekly Completion",
+                text = stringResource(id = R.string.days_of_the_week),
+                fontSize = 25.sp,
                 color = Color.White
             )
 
@@ -69,7 +71,7 @@ fun WeeklyCompletion(
                     val isToday = item.label.equals(todayLabel, ignoreCase = true)
 
                     ItemWeeklyCompletion(
-                        icon =  R.drawable.glass,
+                        icon = R.drawable.glass,
                         day = item.label,
                         isActive = isToday,
                         value = item.value,
@@ -116,7 +118,6 @@ fun ItemWeeklyCompletion(
                 }
             }
 
-            // ✅ تیک فقط وقتی روز فعاله و نوشیدن داریم
             if (isActive && value > 0) {
                 Card(
                     modifier = Modifier

@@ -16,6 +16,7 @@ fun ChartGrid(
     chartHeight: Dp,
     barMaxHeightFactor: Float
 ) {
+
     Canvas(modifier) {
         val yAxisX = yAxisWidth.toPx()
         val bottom = chartHeight.toPx()

@@ -1,6 +1,5 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.irajnajafi1988gmail.hydrobell.domain.datastore.model.DishesUseCase
@@ -29,7 +28,6 @@ class DishesViewModel @Inject constructor(
 
     fun toggleDishes() {
         _showDishes.value = !_showDishes.value
-        Log.d(TAG, "وضعیت نمایش ظروف: ${_showDishes.value}")
     }
 
     val selectedDish: StateFlow<ItemDishes> =
@@ -45,7 +43,7 @@ class DishesViewModel @Inject constructor(
             try {
                 useCase.saveDishesUseCase(dish)
             } catch (e: Exception) {
-                Log.e(TAG, "خطا در ذخیره ظرف", e)
+                e.message
             }
         }
     }

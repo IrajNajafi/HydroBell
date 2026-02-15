@@ -51,7 +51,7 @@ class AddAmountToDailyDrinkUseCase @Inject constructor(
         val updated = if (current != null) {
             current.copy(
                 totalDrink = current.totalDrink + amount
-                // isCompleted حفظ می‌شود
+
             )
         } else {
             DailyDrink(

@@ -10,23 +10,19 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-const val TAG = "MainScreenViewModel"
-
-
 
 @HiltViewModel
-class MainScreenViewModel @Inject constructor(
+class MainScreenViewModel @Inject constructor() : ViewModel() {
 
-) : ViewModel() {
 
     private val _selectedTab = MutableStateFlow(0)
     val selectedTab: StateFlow<Int> = _selectedTab.asStateFlow()
 
     fun selectTab(index: Int) {
-        viewModelScope.launch {
-            _selectedTab.value = index
-            Log.d(TAG, "📌 تب انتخاب شد: $index")
+        if (_selectedTab.value != index) {
+            viewModelScope.launch {
+                _selectedTab.value = index
+            }
         }
     }
-
 }

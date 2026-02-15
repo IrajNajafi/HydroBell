@@ -39,7 +39,7 @@ fun ChartBarsRow(
                 barHeight = barHeight,
                 labelHeight = labelHeight,
                 onClick = { onItemSelected(item) },
-                showCompletionMarks = showCompletionMarks // ✅ اصلاح شد
+                showCompletionMarks = showCompletionMarks
             )
         }
     }

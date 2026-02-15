@@ -1,18 +1,17 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.screen
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,44 +34,44 @@ fun ActivityLavalScreen(
 ) {
 
     val composition by rememberLottieComposition(
-        LottieCompositionSpec.RawRes(if (gender == Gender.MALE) R.raw.man_activity else R.raw.woman_activity)
+        LottieCompositionSpec.RawRes(
+            if (gender == Gender.MALE) R.raw.man_activity
+            else R.raw.woman_activity
+        )
     )
 
     val progress by animateLottieCompositionAsState(
         composition = composition,
         iterations = LottieConstants.IterateForever
     )
+
     Column(
-        modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        // 🔹 عنوان صفحه
         Text(
-            text = "Please Select Your Activity Laval",
+            text = stringResource(R.string.please_Select_Your_Activity_Level),
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.DarkGray
+            color = MaterialTheme.colorScheme.onSurface
         )
+
         Spacer(Modifier.weight(1f))
+
         LottieAnimation(
             composition = composition,
             progress = { progress },
             modifier = Modifier.size(200.dp)
-
-
         )
 
         LevelChipGroupPro(
             selectedOption = selectedActivityLevel,
-            onSelectedChange = { level ->
-                onSelectedChange(level)
-
-            }
+            onSelectedChange = onSelectedChange
         )
 
         Spacer(Modifier.weight(1f))
-
     }
-
 }

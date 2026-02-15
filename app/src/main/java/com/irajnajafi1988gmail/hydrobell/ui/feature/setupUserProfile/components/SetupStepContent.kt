@@ -1,7 +1,10 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.components
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.irajnajafi1988gmail.hydrobell.R
+import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.settingScreenItem.viewModel.DarkModeViewModel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.common.loadingscreen.LoadingScreenWithWave
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.ActivityLevel
 import com.irajnajafi1988gmail.hydrobell.ui.feature.setupUserProfile.model.Environment
@@ -24,7 +27,7 @@ fun SetupStepContent(
     onWeightChanged: (Int) -> Unit,
     onAgeChanged: (Int) -> Unit,
     onActivityChanged: (ActivityLevel) -> Unit,
-    onEnvironmentChanged: (Environment) -> Unit
+    onEnvironmentChanged: (Environment) -> Unit,
 ) {
     when (step) {
         0 -> GenderScreen(
@@ -36,9 +39,9 @@ fun SetupStepContent(
             imag = if (gender == Gender.MALE)
                 R.drawable.weight_man
             else
-                R.drawable.weight_woman,
+                R.drawable.we,
             weight = weight,
-            label = "Kg",
+            label = stringResource(id = R.string.kg),
             onValueChange = onWeightChanged
         )
 
@@ -48,7 +51,7 @@ fun SetupStepContent(
             else
                 R.drawable.age_woman,
             age = age,
-            label = "Yr",
+            label = stringResource(R.string.yr),
             onValueChange = onAgeChanged
         )
 

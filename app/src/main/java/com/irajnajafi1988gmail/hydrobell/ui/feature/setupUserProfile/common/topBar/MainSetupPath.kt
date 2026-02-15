@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +25,7 @@ fun MainSetupPath(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.background)
             .padding(top = 30.dp, bottom = 20.dp)
     ) {
         Row(
@@ -38,9 +39,11 @@ fun MainSetupPath(
                 val isActive = index <= currentStep
                 ItemPath(
                     icon = item.icon,
-                    label = item.label,
+                    labelRes = item.label,
+                    value = item.value,
                     color = if (isActive) item.color else Color.LightGray
                 )
+
                 if (index < steps.lastIndex) {
                     StepProgressLine(
                         modifier = Modifier

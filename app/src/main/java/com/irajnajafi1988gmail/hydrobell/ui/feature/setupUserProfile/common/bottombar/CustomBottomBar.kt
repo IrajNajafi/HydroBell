@@ -14,7 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.irajnajafi1988gmail.hydrobell.R
 
 @Composable
 fun CustomBottomBar(
@@ -59,7 +61,8 @@ fun CustomBottomBar(
                 NextButton(
                   enabled = isNextEnabled,
                     onClickNext = onClickNext,
-                    text = if (currentStep<4) "Next" else "Finish"
+                    text = if (currentStep<4) stringResource(R.string.next)
+                    else stringResource(R.string.finish)
 
                 )
 

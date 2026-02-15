@@ -1,7 +1,9 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.historyScreenItem.model
 
-enum class HistoryRange {
-    WEEK ,
-    MONTH,
-    YEAR
+import com.irajnajafi1988gmail.hydrobell.R
+
+enum class HistoryRange(val label: Int) {
+    WEEK(label = R.string.week) ,
+    MONTH(label = R.string.month),
+    YEAR(label = R.string.year)
 }

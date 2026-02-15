@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">HydroBell</string>
+
+    <!-- Gender -->
+    <string name="none">خالی</string>
+    <string name="male">مرد</string>
+    <string name="female">زن</string>
+
+    <!-- Setup texts -->
+    <string name="please_Select_Your_Gender">لطفاً جنسیت خود را انتخاب کنید</string>
+    <string name="please_Select_Your_Weight">لطفاً وزن خود را انتخاب کنید</string>
+    <string name="please_Select_Your_Age">لطفاً سن خود را انتخاب کنید</string>
+    <string name="please_Select_Your_Activity_Level">لطفاً سطح فعالیت خود را انتخاب کنید</string>
+    <string name="please_Select_Your_Environment">لطفاً محیط خود را انتخاب کنید</string>
+
+
+    <!-- Units -->
+    <string name="kg">کیلوگرم</string>
+    <string name="yr">سال</string>
+    <string name="weight_value">%1$d کیلوگرم</string>
+    <string name="age_value">%1$d سال</string>
+
+    <!-- Activity level -->
+    <string name="low">کم</string>
+    <string name="medium">متوسط</string>
+    <string name="high">زیاد</string>
+
+    <!-- Environment -->
+    <string name="freezing">یخبندان</string>
+    <string name="cold">سرد</string>
+    <string name="normal">معمولی</string>
+    <string name="warm">گرم</string>
+    <string name="hot">داغ</string>
+    <!-- BottomBar -->
+    <string name="next">بعدی</string>
+    <string name="previous">قبلی</string>
+    <string name="finish">پایان</string>
+    <!-- Settings -->
+    <string name="dark_mode">رابط روشن یا تاریک</string>
+    <string name="language">زبان</string>
+    <string name="info">درباره ما</string>
+
+    <string name="english">انگلیسی</string>
+    <string name="persian">فارسی</string>
+
+    <string name="light">روشن</string>
+    <string name="dark">تاریک</string>
+    <string name="system">سیستم</string>
+
+    <string name="reset">بازنشانی</string>
+    <string name="reset_data">بازنشانی داده‌ها</string>
+
+    <string name="program_version_1.0.0">نسخه ۱.۰.۰</string>
+    <string name="exit">برای خروج دوباره دکمه بازگشت را بزنید.</string>
+    <!-- HomeScreen -->
+    <string name="start_drinking_your_first_glass_of_water">اولین لیوان آب خود را بنوشید</string>
+    <string name="keep_going">%1$d میلی‌لیتر تا رسیدن به هدف باقی مانده</string>
+    <string name="goal_reached">به هدف روزانه‌ی آب خود رسیدید 💦</string>
+    <string name="over_goal">شما %1$d میلی‌لیتر بیشتر از هدف نوشیده‌اید!</string>
+    <string name="water_amount">%1$d / %2$d میلی‌لیتر</string>
+    <string name="cups_text">%1$d / %2$d</string>
+    <string name="ml_value">%1$d میلی‌لیتر</string>
+    <string name="confirm_that_you_have_just_drunk_water">تأیید کنید که تازه آب نوشیده‌اید</string>
+    <!-- HistoryScreen -->
+    <string name="ml"> میلی لیتر</string>
+    <string name="days_of_the_week"> روزهای هفته</string>
+    <string name="week"> هفته</string>
+    <string name="month">ماه</string>
+    <string name="year">سال</string>
+    <!-- MainScreen -->
+    <string name="home">خانه</string>
+    <string name="history">سابقه</string>
+    <string name="settings">تنظیمات</string>
+    <!-- AlarmScreen -->
+    <string name="please_select_your_wake_up_and_sleep_time.">لطفا زمان بیدار شدن و خوابیدن خود را انتخاب کنید</string>
+    <string name="wake_up_Time">زمان بیدار شدن</string>
+    <string name="sleep_Time">زمان خواب</string>
+    <string name="save_Alarm">ذخیره هشدار</string>
+
+
+
+
+
+
+
+
+
+</resources>

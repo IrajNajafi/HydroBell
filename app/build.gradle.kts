@@ -94,6 +94,10 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
-
+    //systemuicontroller ->ِf or DarkMode
+    implementation(libs.accompanist.systemuicontroller)
+    //pager ->Tabs
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
 
 }

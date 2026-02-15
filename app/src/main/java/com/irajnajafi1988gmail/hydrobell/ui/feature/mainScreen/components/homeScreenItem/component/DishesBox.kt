@@ -1,28 +1,17 @@
 package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.irajnajafi1988gmail.hydrobell.R
 import com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.model.ItemDishes
 
 @Composable
@@ -32,7 +21,9 @@ fun DishesBox(
 ) {
     Card(
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.background
+        ),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
         modifier = Modifier
             .widthIn(min = 280.dp, max = 350.dp)
@@ -48,31 +39,45 @@ fun DishesBox(
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     rowItems.forEach { item ->
-                        Column(
-                            modifier = Modifier
-                                .padding(vertical = 6.dp)
-                                .clickable {
-                                    onSelected(item) // ✅ کل آبجکت
-                                },
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Icon(
-                                painter = painterResource(item.icon),
-                                contentDescription = item.label,
-                                modifier = Modifier.size(42.dp),
-                                tint = Color.Unspecified
-                            )
-                            Spacer(modifier = Modifier.height(6.dp))
-                            Text(
-                                text = item.label,
-                                fontSize = 12.sp,
-                                color = Color(0xFF333333)
-                            )
-                        }
+                        DishItem(
+                            item = item,
+                            onSelected = onSelected
+                        )
                     }
                 }
                 Spacer(modifier = Modifier.height(14.dp))
             }
         }
+    }
+}
+
+@Composable
+private fun DishItem(
+    item: ItemDishes,
+    onSelected: (ItemDishes) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .padding(vertical = 6.dp)
+            .clickable { onSelected(item) },
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            painter = painterResource(item.icon),
+            contentDescription = null,
+            modifier = Modifier.size(42.dp),
+            tint = MaterialTheme.colorScheme.onSurface
+        )
+
+        Spacer(modifier = Modifier.height(6.dp))
+
+        Text(
+            text = stringResource(
+                R.string.ml_value,
+                item.volumeMl
+            ),
+            fontSize = 12.sp,
+            color = MaterialTheme.colorScheme.onSurface
+        )
     }
 }

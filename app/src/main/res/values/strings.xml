@@ -1,3 +1,82 @@
 <resources>
+
     <string name="app_name">HydroBell</string>
+
+    <!-- Gender -->
+    <string name="none">None</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
+    <!-- Setup texts -->
+    <string name="please_Select_Your_Gender">Please select your gender</string>
+    <string name="please_Select_Your_Weight">Please select your weight</string>
+    <string name="please_Select_Your_Age">Please select your age</string>
+    <string name="please_Select_Your_Activity_Level">Please select your activity level</string>
+    <string name="please_Select_Your_Environment">Please select your Environment</string>
+
+    <!-- Units -->
+    <string name="kg">kg</string>
+    <string name="yr">yr</string>
+    <string name="weight_value">%1$d kg</string>
+    <string name="age_value">%1$d yr</string>
+
+    <!-- Activity level -->
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
+
+    <!-- Environment -->
+    <string name="freezing">Freezing</string>
+    <string name="cold">Cold</string>
+    <string name="normal">Normal</string>
+    <string name="warm">Warm</string>
+    <string name="hot">Hot</string>
+
+    <!-- BottomBar -->
+    <string name="next">Next</string>
+    <string name="previous">previous</string>
+    <string name="finish">Finish</string>
+
+    <!-- Settings -->
+    <string name="dark_mode">Light or dark interface</string>
+    <string name="language">Language</string>
+    <string name="info">Info</string>
+
+    <string name="english">English</string>
+    <string name="persian">Persian</string>
+
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="system">System</string>
+
+    <string name="reset">Reset</string>
+    <string name="reset_data">Reset data</string>
+
+    <string name="program_version_1.0.0">Version 1.0.0</string>
+    <string name="exit">Press the back button again to exit.</string>
+    <!-- HomeScreen -->
+    <string name="start_drinking_your_first_glass_of_water">Start drinking your first glass of water</string>
+    <string name="keep_going">%1$d ml to reach your goal</string>
+    <string name="goal_reached">You reached your daily water goal 💦</string>
+    <string name="over_goal">You exceeded your goal by %1$d ml!</string>
+    <string name="water_amount">%1$d / %2$d ml</string>
+    <string name="cups_text">%1$d / %2$d </string>
+    <string name="ml_value">%1$d ml</string>
+    <string name="confirm_that_you_have_just_drunk_water">Confirm that you have just drunk water</string>
+    <!-- HistoryScreen -->
+    <string name="ml">Ml</string>
+    <string name="days_of_the_week">Days Of The Week</string>
+    <string name="week">WEEK</string>
+    <string name="month">MONTH</string>
+    <string name="year">YEAR</string>
+    <!-- MainScreen -->
+    <string name="home">Home</string>
+    <string name="history">History</string>
+    <string name="settings">Settings</string>
+    <!-- AlarmScreen -->
+    <string name="please_select_your_wake_up_and_sleep_time.">Please select your wake up and sleep time.</string>
+    <string name="wake_up_Time">Wake-up Time</string>
+    <string name="sleep_Time">Sleep Time</string>
+    <string name="save_Alarm">Save Alarm</string>
+
 </resources>

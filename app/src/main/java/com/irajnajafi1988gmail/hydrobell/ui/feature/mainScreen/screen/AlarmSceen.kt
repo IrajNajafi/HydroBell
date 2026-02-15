@@ -1,4 +1,4 @@
-package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.components.homeScreenItem.component
+package com.irajnajafi1988gmail.hydrobell.ui.feature.mainScreen.screen
 
 import android.app.TimePickerDialog
 import androidx.activity.compose.BackHandler
@@ -11,9 +11,11 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,16 +37,16 @@ fun AlarmScreen(
             wakePlaying = true
             sleepPlaying = true
 
-            delay(1500) // مدت اجرای انیمیشن
+            delay(1500)
             wakePlaying = false
             sleepPlaying = false
 
-            delay(4500) // فاصله تا اجرای بعدی
+            delay(4500)
         }
     }
 
     BackHandler {
-        navController.popBackStack() // برمی‌گرده به صفحه قبلی یعنی Home
+        navController.popBackStack()
     }
     var wakeUpTime by rememberSaveable { mutableStateOf("07:00") }
     var sleepTime by rememberSaveable { mutableStateOf("23:00") }
@@ -73,22 +75,23 @@ fun AlarmScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
            .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(40.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Please select your wake up and sleep time.",
+            text = stringResource(R.string.please_select_your_wake_up_and_sleep_time_),
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.DarkGray,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(top = 50.dp)
         )
 
         Spacer(Modifier.height(40.dp))
 
         AlarmCard(
-            title = "Wake-up Time",
+            title = stringResource(R.string.wake_up_Time),
             time = wakeUpTime,
             imageRes = wakeImage,
             backgroundColor = Color(0xFFE3F2FD),
@@ -99,7 +102,7 @@ fun AlarmScreen(
         )
 
         AlarmCard(
-            title = "Sleep Time",
+            title = stringResource(R.string.sleep_Time),
             time = sleepTime,
             imageRes = sleepImage,
             backgroundColor = Color(0xFFFFF3E0),
@@ -111,9 +114,8 @@ fun AlarmScreen(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // ✅ دکمه Save زیبا
+
         SaveButton {
-            // اینجا اکشن سیو الارم‌ها را قرار بده
             println("WakeUp: $wakeUpTime, Sleep: $sleepTime saved!")
         }
 
@@ -150,7 +152,7 @@ fun AlarmCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // بخش اطلاعات کارت
+
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.SpaceBetween
@@ -168,7 +170,7 @@ fun AlarmCard(
                     modifier = Modifier.size(50.dp)
                 )
 
-                // دکمه انتخاب زمان با feedback بهتر
+
                 Button(
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
@@ -191,7 +193,7 @@ fun AlarmCard(
                 }
             }
 
-            // Lottie animation سمت راست کارت
+
             lottieComposition?.let {
                 LottieAnimation(
                     composition = it,
@@ -205,7 +207,6 @@ fun AlarmCard(
 
 @Composable
 fun SaveButton(onClick: () -> Unit) {
-    // State برای افکت کلیک (فشار دادن)
     var isPressed by remember { mutableStateOf(false) }
 
     Button(
@@ -226,12 +227,12 @@ fun SaveButton(onClick: () -> Unit) {
             pressedElevation = 16.dp
         )
     ) {
-        // Gradient و انیمیشن ساده داخل دکمه
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    brush = androidx.compose.ui.graphics.Brush.horizontalGradient(
+                    brush = Brush.horizontalGradient(
                         colors = listOf(
                             Color(0xFF42A5F5),
                             Color(0xFF478DE0)
@@ -242,7 +243,7 @@ fun SaveButton(onClick: () -> Unit) {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Save Alarm",
+                text = stringResource(R.string.save_Alarm),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White

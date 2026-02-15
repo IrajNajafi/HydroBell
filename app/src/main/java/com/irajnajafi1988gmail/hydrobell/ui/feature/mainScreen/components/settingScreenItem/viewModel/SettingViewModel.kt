@@ -31,14 +31,13 @@ class SettingViewModel @Inject constructor(
             _uiState.value = ResettableUiState(isLoading = true)
 
             try {
-                // پاک کردن پروفایل
+
                 userProfileUseCase.clearUserProfileUseCase()
 
-                // ریست وضعیت کامل بودن پروفایل
                 isCompleteUseCase.setProfileCompleteUseCase(false)
 
                 delay(1000)
-                // اعلام موفقیت
+
                 _uiState.value = ResettableUiState(
                     isDone = true
                 )
