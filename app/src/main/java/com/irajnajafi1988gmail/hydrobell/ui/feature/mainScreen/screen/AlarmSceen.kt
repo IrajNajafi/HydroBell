@@ -28,19 +28,22 @@ import kotlinx.coroutines.delay
 @Composable
 fun AlarmScreen(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
 ) {
+    val context = LocalContext.current
+
+    // State ها از ViewModel
+
     var wakePlaying by remember { mutableStateOf(false) }
     var sleepPlaying by remember { mutableStateOf(false) }
+
     LaunchedEffect(Unit) {
         while (true) {
             wakePlaying = true
             sleepPlaying = true
-
             delay(1500)
             wakePlaying = false
             sleepPlaying = false
-
             delay(4500)
         }
     }
@@ -48,8 +51,10 @@ fun AlarmScreen(
     BackHandler {
         navController.popBackStack()
     }
-    var wakeUpTime by rememberSaveable { mutableStateOf("07:00") }
-    var sleepTime by rememberSaveable { mutableStateOf("23:00") }
+
+    // 🕑 State های محلی برای نمایش و تغییر زمان
+    var wakeUpTime by rememberSaveable { mutableStateOf( { "07:00" }) }
+    var sleepTime by rememberSaveable { mutableStateOf( { "23:00" }) }
 
     val wakeComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.automatic_time))
     val sleepComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animation_time_sleep))
@@ -68,15 +73,11 @@ fun AlarmScreen(
         restartOnPlay = true
     )
 
-
-    val wakeImage = R.drawable.waking_up
-    val sleepImage = R.drawable.sleep_image
-
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-           .padding(16.dp),
+            .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(40.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -92,31 +93,33 @@ fun AlarmScreen(
 
         AlarmCard(
             title = stringResource(R.string.wake_up_Time),
-            time = wakeUpTime,
-            imageRes = wakeImage,
+            time = "",
+            imageRes = R.drawable.waking_up,
             backgroundColor = Color(0xFFE3F2FD),
             titleColor = Color(0xFF0D47A1),
-            onTimeSelected = { wakeUpTime = it },
+            onTimeSelected = { },
             lottieComposition = wakeComposition,
             lottieProgress = wakeProgress
         )
 
         AlarmCard(
             title = stringResource(R.string.sleep_Time),
-            time = sleepTime,
-            imageRes = sleepImage,
+            time = "",
+            imageRes = R.drawable.sleep_image,
             backgroundColor = Color(0xFFFFF3E0),
             titleColor = Color(0xFFF57C00),
-            onTimeSelected = { sleepTime = it },
+            onTimeSelected = {  },
             lottieComposition = sleepComposition,
             lottieProgress = sleepProgress
         )
 
         Spacer(modifier = Modifier.weight(1f))
 
-
         SaveButton {
-            println("WakeUp: $wakeUpTime, Sleep: $sleepTime saved!")
+
+
+            // 🔹 بعد از ذخیره شدن برگرد به HomeScreen
+            navController.popBackStack()
         }
 
         Spacer(Modifier.height(24.dp))
